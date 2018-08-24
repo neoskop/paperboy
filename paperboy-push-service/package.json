@@ -1,0 +1,39 @@
+{
+  "name": "paperboy-push-service",
+  "version": "0.10.6",
+  "description": "",
+  "main": "dist",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "tsc -p ./tsconfig.json",
+    "start": "NODE_ENV=production node ./dist",
+    "dev": "NODE_ENV=development npm run nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon -e ts -w \"./src\" -x \"npm run debug\"",
+    "debug": "node -r ts-node/register --inspect ./src/index.ts"
+  },
+  "devDependencies": {
+    "@types/amqplib": "0.5.2",
+    "@types/convict": "4.2.0",
+    "@types/express": "4.16.0",
+    "@types/node": "10.3.6",
+    "@types/passport": "0.4.5",
+    "@types/passport-http-bearer": "1.0.33",
+    "nodemon": "1.17.5",
+    "ts-node": "7.0.0",
+    "tslint": "5.10.0",
+    "typescript": "2.9.2"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": "10.5.0"
+  },
+  "dependencies": {
+    "amqplib": "0.5.2",
+    "convict": "4.3.0",
+    "express": "4.16.3",
+    "passport": "0.4.0",
+    "passport-http-bearer": "1.0.1"
+  }
+}

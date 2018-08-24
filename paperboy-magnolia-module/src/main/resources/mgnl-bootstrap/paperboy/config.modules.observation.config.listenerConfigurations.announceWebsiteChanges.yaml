@@ -1,0 +1,10 @@
+'announceWebsiteChanges': 
+  'active': 'true'
+  'delay': '30'
+  'description': 'Announces to Queue that pages were changed'
+  'includeSubNodes': 'true'
+  'maxDelay': '250'
+  'path': '/'
+  'repository': 'website'
+  'listener': 
+    'class': 'de.neoskop.magnolia.listener.FuzzyChangeListener'

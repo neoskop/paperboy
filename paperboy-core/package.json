@@ -1,0 +1,57 @@
+{
+  "name": "@neoskop/paperboy",
+  "version": "0.10.6",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "author": "Philipp Siekmann <siekmann@neoskop.de>",
+  "repository": "https://bitbucket.org/neoskop/headless-mgnl",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">= 8.9.3"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.json",
+    "lint": "tslint -p tslint.json",
+    "start": "npm run build && nodemon --inspect -e ts,json --watch 'src' --exec ts-node src/index.ts",
+    "test": "nyc mocha --require ts-node/register --require source-map-support/register --recursive src/**/*.spec.ts"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/*.spec.ts",
+      "**/*.js"
+    ],
+    "all": true
+  },
+  "devDependencies": {
+    "@types/chai": "4.0.4",
+    "@types/chai-as-promised": "7.1.0",
+    "@types/express": "4.0.39",
+    "@types/mocha": "2.2.44",
+    "@types/node": "8.0.51",
+    "@types/shelljs": "0.7.7",
+    "@types/winston": "2.3.7",
+    "chai": "4.1.2",
+    "chai-as-promised": "7.1.1",
+    "concurrently": "3.5.0",
+    "mocha": "4.0.1",
+    "mocha-mongoose": "1.2.0",
+    "nodemon": "1.12.1",
+    "nyc": "11.3.0",
+    "rimraf": "2.6.2",
+    "source-map-support": "0.5.0",
+    "ts-node": "3.3.0",
+    "tslint": "5.8.0",
+    "typescript": "2.6.1"
+  },
+  "dependencies": {
+    "shelljs": "0.7.8",
+    "winston": "2.4.0"
+  }
+}

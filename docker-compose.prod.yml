@@ -1,0 +1,74 @@
+version: '3'
+services:
+  mysql:
+    image: neoskop/mysql:percona
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      TZ: "Europe/Berlin"
+      DISABLE_BACKUPS: "true"
+      DB_NAMES: "headless_magnolia_author"
+      PROJECT_PREFIX: "headles-magnolia-author"
+    volumes:
+        - ./data:/var/lib/mysql:cached
+  magnolia:
+    image: neoskop/magnolia-headless:5.6.0
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      TZ: "Europe/Berlin"
+      DATASOURCES: |
+        {
+          "datasources": [
+            {
+              "name": "MagnoliaAuthor",
+              "database": "headless_magnolia_author"
+            }
+          ]
+        }
+      DEVELOPMENT: "true"
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    volumes:
+      - ./magnolia:/home/tomcat/repo:ro,consistent
+      - magnolia-data:/home/tomcat/magnolia_tmp/repositories
+    links:
+      - mysql
+  queue:
+    image: rabbitmq:3.7.0-management
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    hostname: paperboy_queue
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: Boo4bah3ohcohthaeHa5ohter0iSeeS0
+    ports:
+      - "15672:15672"
+  nextjs:
+    image: neoskop/paperboy:0.5.1
+    command: paperboy -c paperboy.docker.json start
+    environment:
+      SERVE_DIR: out
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "3000:3000"
+    depends_on:
+      - queue
+    volumes:
+      - "./react-next-static:/app"
+volumes:
+  magnolia-data:

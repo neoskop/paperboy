@@ -1,0 +1,29 @@
+{
+  "sourceOptions": {
+    "name": "magnolia",
+    "output": {
+      "json": ".",
+      "assets": "assets"
+    },
+    "magnolia": {
+      "url": "http://localhost:8080",
+      "damJsonEndpoint": "/.rest/delivery/dam/v1",
+      "pagesEndpoint": "/.rest/delivery/website/v1",
+      "sitemapEndpoint": "/sitemap",
+      "auth": {
+        "header": "Basic c3VwZXJ1c2VyOnN1cGVydXNlcg=="
+      }
+    },
+    "queue": {
+      "uri": "amqp://admin:Boo4bah3ohcohthaeHa5ohter0iSeeS0@localhost:5672",
+      "queueName": "paperboy",
+      "exchangeName": "paperboy"
+    }
+  },
+  "sinkOptions": {
+    "async": true,
+    "command": "npm run dev",
+    "restartOnChange": false,
+    "workDir": "."
+  }
+}

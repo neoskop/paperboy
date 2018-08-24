@@ -1,0 +1,27 @@
+{
+  "extends": "tslint:recommended",
+  "rules": {
+    "arrow-parens": false,
+    "interface-name": false,
+    "no-angle-bracket-type-assertion": false,
+    "object-literal-sort-keys": false,
+    "object-literal-key-quotes": false,
+    "no-console": false,
+    "quotemark": [
+      true,
+      "single",
+      "avoid-escape"
+    ],
+    "trailing-comma": false,
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-module",
+      "check-operator",
+      "check-preblock",
+      "check-separator",
+      "check-type"
+    ]
+  }
+}

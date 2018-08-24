@@ -1,0 +1,6 @@
+'config': 
+  'previewUrl': 'http://localhost:3000'
+  'queueUri': 'amqp://admin:Boo4bah3ohcohthaeHa5ohter0iSeeS0@queue:5672'
+  jcr:primaryType: 'mgnl:content'
+
+

@@ -1,0 +1,23 @@
+{
+  "name": "@neoskop/paperboy-cli",
+  "version": "0.10.6",
+  "description": "",
+  "preferGlobal": true,
+  "bin": {
+    "paperboy": "./paperboy-cli.js",
+    "paperboy.sh": "./paperboy-cli.js"
+  },
+  "scripts": {},
+  "author": "Neoskop GmbH",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@neoskop/paperboy": "0.10.6",
+    "@neoskop/paperboy-source-magnolia": "0.10.6",
+    "chalk": "2.3.0",
+    "commander": "2.12.2",
+    "inquirer": "4.0.0"
+  },
+  "engines": {
+    "node": "9.5.0"
+  }
+}
