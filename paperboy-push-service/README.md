@@ -18,7 +18,6 @@ curl -X POST \
   -H 'Authorization: Bearer test' \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
-  -H 'Postman-Token: eb7dfc7b-43b8-62df-df93-155722691a87' \
   -d 'source=test&payload=%7B%22foo%22%3A%22bar%22%7D'
 ```
 
