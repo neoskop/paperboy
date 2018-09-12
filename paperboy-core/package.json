@@ -6,10 +6,10 @@
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "author": "Philipp Siekmann <siekmann@neoskop.de>",
-  "repository": "https://bitbucket.org/neoskop/headless-mgnl",
-  "license": "UNLICENSED",
+  "repository": "https://github.com/neoskop/paperboy",
+  "license": "Apache-2.0",
   "engines": {
-    "node": ">= 8.9.3"
+    "node": "8.12.0"
   },
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.json",
@@ -42,8 +42,8 @@
     "concurrently": "3.5.0",
     "mocha": "4.0.1",
     "mocha-mongoose": "1.2.0",
-    "nodemon": "1.12.1",
-    "nyc": "11.3.0",
+    "nodemon": "1.18.4",
+    "nyc": "13.1.0",
     "rimraf": "2.6.2",
     "source-map-support": "0.5.0",
     "ts-node": "3.3.0",
