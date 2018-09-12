@@ -3,6 +3,7 @@
   "version": "0.10.6",
   "description": "",
   "repository": "https://github.com/neoskop/paperboy",
+  "homepage": "https://neolabs.io",
   "license": "Apache-2.0",
   "main": "dist",
   "scripts": {
