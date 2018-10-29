@@ -29,7 +29,7 @@
   },
   "author": "Arne Diekmann <diekmann@neoskop.de>",
   "engines": {
-    "node": "8.12.0"
+    "node": ">=8.12.0"
   },
   "dependencies": {
     "amqplib": "0.5.2",
