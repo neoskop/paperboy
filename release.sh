@@ -22,6 +22,7 @@ npm publish
 
 cd ../paperboy-cli
 cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperboy\" = \"$version\" | .dependencies.\"@neoskop/paperboy-source-magnolia\" = \"$version\"" > package.json.new
+npm i
 
 # if command -v perl; then
 #   perl -pie "s/version\('[0-9]+\.[0-9]+\.[0-9]+'\)/version('$version')/g" paperboy-cli.js
