@@ -169,42 +169,46 @@ export function sanitizeJson(
           .replace(/^jcr:uuid/, 'id');
 
         if (!sanitizedKey.match(/^jcr:/)) {
-          if (typeof json[key] === 'object') {
+          if (typeof json[key] === 'object' && !Array.isArray(json[key])) {
             sanitized[sanitizedKey] = sanitizeJson(json[key], damAssets, pages, sourceOptions);
           } else {
-            if (
-              json[key].match(
-                /^jcr:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
-              )
-            ) {
-              const uuid = json[key].replace('jcr:', '');
-              sanitized[sanitizedKey] = damAssets.find(
-                damAsset => damAsset && damAsset.id === uuid
-              );
-            } else if (
-              !originalKey.match(/^@/) &&
-              !originalKey.match(/^jcr:uuid/) &&
-              json[key].match(
-                /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
-              )
-            ) {
-              const node = getPopulatedNode(json[key], pages);
-              let value: any;
+            let items = Array.isArray(json[key]) ? json[key] : [json[key]];
 
-              if (node) {
-                value = Object.assign(getPopulatedNode(json[key], pages) || {}, {
-                  workspace: 'website'
-                });
+            items = items.map((item: any) => {
+              if (
+                item.match(
+                  /^jcr:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
+                )
+              ) {
+                const uuid = item.replace('jcr:', '');
+                return damAssets.find(damAsset => damAsset && damAsset.id === uuid);
+              } else if (
+                !originalKey.match(/^@/) &&
+                !originalKey.match(/^jcr:uuid/) &&
+                item.match(
+                  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
+                )
+              ) {
+                const node = getPopulatedNode(item, pages);
+                let value: any;
+
+                if (node) {
+                  value = Object.assign(getPopulatedNode(item, pages) || {}, {
+                    workspace: 'website'
+                  });
+                } else {
+                  value = Object.assign(getPopulatedNode(item, damAssets) || {}, {
+                    workspace: 'dam'
+                  });
+                }
+
+                return value;
               } else {
-                value = Object.assign(getPopulatedNode(json[key], damAssets) || {}, {
-                  workspace: 'dam'
-                });
+                return item;
               }
+            });
 
-              sanitized[sanitizedKey] = value;
-            } else {
-              sanitized[sanitizedKey] = json[key];
-            }
+            sanitized[sanitizedKey] = Array.isArray(json[key]) ? items : items[0];
           }
         }
       }
