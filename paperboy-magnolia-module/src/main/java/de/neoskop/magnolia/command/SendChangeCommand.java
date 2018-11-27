@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class SendChangeCommand extends MgnlCommand {
   @Override
-  public boolean execute(Context context) throws Exception {
+  public boolean execute(Context context) {
     final String workspace = (String) context.get("workspace");
     final Change change = new Change(StringUtils.isBlank(workspace) ? "website" : workspace);
     return Components.getComponent(ChangeAnnouncementService.class).announce(change);
