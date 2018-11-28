@@ -29,8 +29,10 @@ export class MagnoliaSource implements Source {
 
       const workspaces: { [workspace: string]: any } = {};
 
-      for (const workspace of this.options.magnolia.workspaces) {
-        workspaces[workspace] = await fetchWorkspace(workspace, this.options);
+      if (this.options.magnolia.workspaces) {
+        for (const workspace of this.options.magnolia.workspaces) {
+          workspaces[workspace] = await fetchWorkspace(workspace, this.options);
+        }
       }
 
       // get dam jcr ids
