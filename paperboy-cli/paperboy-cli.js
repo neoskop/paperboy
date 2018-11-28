@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
-const chalk = require("chalk");
-const fs = require("fs");
-const Paperboy = require("@neoskop/paperboy").Paperboy;
-const program = require("commander");
-const PaperboyMagnoliaSource = require("@neoskop/paperboy-source-magnolia");
+const chalk = require('chalk');
+const fs = require('fs');
+const Paperboy = require('@neoskop/paperboy').Paperboy;
+const program = require('commander');
+const PaperboyMagnoliaSource = require('@neoskop/paperboy-source-magnolia');
 
-program.version("0.11.0").description("Paperboy CLI");
+program.version('1.0.0').description('Paperboy CLI');
 
 program
-  .command("build")
-  .description("Fetches data and builds the frontend only once")
-  .option("-c --config [config]", "Path to config file")
+  .command('build')
+  .description('Fetches data and builds the frontend only once')
+  .option('-c --config [config]', 'Path to config file')
   .action(program => {
     const paperboy = setupPaperboy(program, config => {
       // Forcefully disable async process spawning
@@ -21,11 +21,11 @@ program
   });
 
 program
-  .command("start")
+  .command('start')
   .description(
-    "Continuously watches an AMQP queue and rebuilds the frontend when a message is received"
+    'Continuously watches an AMQP queue and rebuilds the frontend when a message is received'
   )
-  .option("-c --config [config]", "Path to config file")
+  .option('-c --config [config]', 'Path to config file')
   .action(program => {
     const paperboy = setupPaperboy(program);
     paperboy.start();
@@ -35,8 +35,8 @@ program.parse(process.argv);
 
 function setupPaperboy(program, configModifier) {
   let config;
-  let configPath = program.config || "paperboy.config.json";
-  console.log(chalk.bold.cyan("[Paperboy] Starting …"));
+  let configPath = program.config || 'paperboy.config.json';
+  console.log(chalk.bold.cyan('[Paperboy] Starting …'));
   try {
     config = JSON.parse(fs.readFileSync(configPath));
   } catch (e) {
