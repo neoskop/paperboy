@@ -1,18 +1,19 @@
-import { Source, SourceCallback, SourceOptions } from '@neoskop/paperboy';
-
 import { connect, Message } from 'amqplib';
+
+import { Source, SourceCallback, SourceOptions } from '@neoskop/paperboy';
 
 import { fetchDamAssets } from './dam.util';
 import { MagnoliaSourceOptions } from './magnolia-source-options.interface';
 import {
     fetchPages, fetchSitemap, fetchWorkspace, sanitizeJson, writePagesFile, writeWorkspaceFile
 } from './pages.util';
-import AsyncLock = require("async-lock");
+
+import AsyncLock = require('async-lock');
 
 export class MagnoliaSource implements Source {
   private readonly options: MagnoliaSourceOptions;
   private readonly callback: SourceCallback;
-  private readonly generationLock: AsyncLock = new AsyncLock({maxPending: 1});
+  private readonly generationLock: AsyncLock = new AsyncLock({ maxPending: 1 });
 
   constructor(options: SourceOptions, callback: SourceCallback) {
     this.options = <MagnoliaSourceOptions>options;
@@ -50,7 +51,7 @@ export class MagnoliaSource implements Source {
 
       const damAssets = await fetchDamAssets(damUuids, this.options);
       const pagesObj: any = pages.map((page: any) =>
-        sanitizeJson(page, damAssets, pages, this.options)
+        sanitizeJson(page, damAssets, pages, this.options, workspaces)
       );
 
       await writePagesFile(pagesObj, this.options);
@@ -63,7 +64,9 @@ export class MagnoliaSource implements Source {
             const sanitized: any[] = [];
 
             for (const item of workspaceData) {
-              sanitized.push(sanitizeJson(item, damAssets, workspaceData, this.options));
+              sanitized.push(
+                sanitizeJson(item, damAssets, workspaceData, this.options, workspaces)
+              );
             }
 
             await writeWorkspaceFile(workspace, sanitized, this.options);
@@ -117,17 +120,23 @@ export class MagnoliaSource implements Source {
       message.content.toString()
     );
 
-    this.generationLock.acquire('generationLock', (done) => {
-        this.generate().then(() => {
-          this.callback().then(() => done());
-        }).catch((err) => {
-          console.error('Generation failed.', err);
-          done()
-        });
-    }, (err, ret) => {
+    this.generationLock.acquire(
+      'generationLock',
+      done => {
+        this.generate()
+          .then(() => {
+            this.callback().then(() => done());
+          })
+          .catch(err => {
+            console.error('Generation failed.', err);
+            done();
+          });
+      },
+      (err, ret) => {
         if (err) {
           console.info('Already another pending message. Message discarded!');
         }
-    });
+      }
+    );
   }
 }

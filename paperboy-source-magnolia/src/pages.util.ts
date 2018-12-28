@@ -142,7 +142,8 @@ export function sanitizeJson(
   json: any,
   damAssets: any[],
   pages: any,
-  sourceOptions: MagnoliaSourceOptions
+  sourceOptions: MagnoliaSourceOptions,
+  workspaces: { [workspace: string]: any } = {}
 ): any {
   const sanitized: any = {};
 
@@ -158,7 +159,7 @@ export function sanitizeJson(
 
         if (contentOrder.length > 0) {
           sanitized[key.substr(1)] = contentOrder.map(contentKeyIndex =>
-            sanitizeJson(json[contentKeyIndex], damAssets, pages, sourceOptions)
+            sanitizeJson(json[contentKeyIndex], damAssets, pages, sourceOptions, workspaces)
           );
         }
       } else if (!isKeyExcluded && key !== 'content' && !key.match(/^\d+$/)) {
@@ -170,7 +171,13 @@ export function sanitizeJson(
 
         if (!sanitizedKey.match(/^jcr:/)) {
           if (typeof json[key] === 'object' && !Array.isArray(json[key])) {
-            sanitized[sanitizedKey] = sanitizeJson(json[key], damAssets, pages, sourceOptions);
+            sanitized[sanitizedKey] = sanitizeJson(
+              json[key],
+              damAssets,
+              pages,
+              sourceOptions,
+              workspaces
+            );
           } else {
             let items = Array.isArray(json[key]) ? json[key] : [json[key]];
 
@@ -193,13 +200,28 @@ export function sanitizeJson(
                 let value: any;
 
                 if (node) {
-                  value = Object.assign(getPopulatedNode(item, pages) || {}, {
+                  value = Object.assign(node || {}, {
                     workspace: 'website'
                   });
                 } else {
-                  value = Object.assign(getPopulatedNode(item, damAssets) || {}, {
-                    workspace: 'dam'
-                  });
+                  const asset = getPopulatedNode(item, damAssets);
+
+                  if (asset) {
+                    value = Object.assign(asset || {}, {
+                      workspace: 'dam'
+                    });
+                  } else {
+                    const workspaceNode = Object.keys(workspaces)
+                      .map(key => workspaces[key])
+                      .map(workspace =>
+                        Object.assign({}, getPopulatedNode(item, workspace), { workspace: key })
+                      )
+                      .shift();
+
+                    value = Object.assign(workspaceNode || {}, {
+                      workspace: workspaceNode ? workspaceNode.workspace : null
+                    });
+                  }
                 }
 
                 return value;
