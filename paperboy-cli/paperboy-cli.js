@@ -6,7 +6,7 @@ const Paperboy = require('@neoskop/paperboy').Paperboy;
 const program = require('commander');
 const PaperboyMagnoliaSource = require('@neoskop/paperboy-source-magnolia');
 
-program.version('1.0.0').description('Paperboy CLI');
+program.version('1.1.0').description('Paperboy CLI');
 
 program
   .command('build')
