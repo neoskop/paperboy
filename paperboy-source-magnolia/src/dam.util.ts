@@ -26,7 +26,7 @@ export function fetchDamAssets(uuids: string[], options?: MagnoliaSourceOptions)
 
         if (body && body.results && body.results.length > 0) {
           const sanitizedAssetJson = uuids
-            .map(uuid => body.results.find((asset: any) => asset['jcr:uuid'] === uuid))
+            .map(uuid => body.results.find((asset: any) => asset['jcr:uuid'] === uuid || asset['@id'] === uuid))
             .map(json => json ? sanitizeDamJson(json) : null);
 
           const assetsNeedingUpdate = sanitizedAssetJson.filter(asset => {
