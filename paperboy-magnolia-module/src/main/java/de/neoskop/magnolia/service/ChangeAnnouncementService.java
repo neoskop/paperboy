@@ -34,9 +34,7 @@ public class ChangeAnnouncementService {
             .header("User-Agent", USER_AGENT)
             .build();
 
-    try {
-      final Response response = client.newCall(request).execute();
-
+    try (final Response response = client.newCall(request).execute()) {
       if (!response.isSuccessful()) {
         LOG.warn("Web hook responded to the announcement with status code " + response.code());
         return false;
