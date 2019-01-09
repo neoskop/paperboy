@@ -52,7 +52,7 @@
     "typescript": "2.6.1"
   },
   "dependencies": {
-    "shelljs": "0.7.8",
+    "shelljs": "0.8.1",
     "winston": "2.4.0"
   }
 }

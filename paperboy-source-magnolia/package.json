@@ -24,7 +24,7 @@
     "@types/node": "8.0.51",
     "@types/request": "2.0.9",
     "@types/retry": "0.10.2",
-    "@types/shelljs": "0.7.7",
+    "@types/shelljs": "0.8.1",
     "rimraf": "2.6.2",
     "ts-node": "3.3.0",
     "tslint": "5.8.0",
