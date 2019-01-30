@@ -48,3 +48,5 @@ git add .
 git commit -m "chore(): Bump version to ${version}."
 git tag ${version}
 git push origin $version
+git pull --rebase
+git push
