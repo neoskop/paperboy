@@ -1,10 +1,14 @@
-import * as fs from 'fs-extra';
-import * as request from 'request';
-import * as retry from 'retry';
+import * as fs from "fs-extra";
+import * as request from "request";
+import * as retry from "retry";
 
-import { MagnoliaSourceOptions } from './magnolia-source-options.interface';
+import { MagnoliaSourceOptions } from "./magnolia-source-options.interface";
+import { reject } from "bluebird";
 
-export function fetchDamAssets(uuids: string[], options?: MagnoliaSourceOptions): Promise<any> {
+export function fetchDamAssets(
+  uuids: string[],
+  options?: MagnoliaSourceOptions
+): Promise<any> {
   return new Promise(resolve => {
     const operation = retry.operation();
     const damUrl = options.magnolia.url + options.magnolia.damJsonEndpoint;
@@ -15,19 +19,25 @@ export function fetchDamAssets(uuids: string[], options?: MagnoliaSourceOptions)
         json: true,
         headers: {
           Authorization: options.magnolia.auth.header,
-          'User-Agent': 'Paperboy'
-        }
+          "User-Agent": "Paperboy"
+        },
+        timeout: 60 * 1000
       },
       async (err, res, body) => {
         if (operation.retry(err)) {
-          console.error('Attempt to get asset information failed, will retry in some time...');
+          console.error(
+            "Attempt to get asset information failed, will retry in some time..."
+          );
           return;
         }
 
         if (body && body.results && body.results.length > 0) {
           const sanitizedAssetJson = uuids
             .map(uuid =>
-              body.results.find((asset: any) => asset['jcr:uuid'] === uuid || asset['@id'] === uuid)
+              body.results.find(
+                (asset: any) =>
+                  asset["jcr:uuid"] === uuid || asset["@id"] === uuid
+              )
             )
             .map(json => (json ? sanitizeDamJson(json) : null));
 
@@ -47,7 +57,11 @@ export function fetchDamAssets(uuids: string[], options?: MagnoliaSourceOptions)
             return true;
           });
 
-          await Promise.all(assetsNeedingUpdate.map(asset => downloadAsset(options, asset)));
+          await Promise.all(
+            assetsNeedingUpdate.map(asset => downloadAsset(options, asset))
+          ).catch(error => {
+            console.error(error);
+          });
 
           resolve(sanitizedAssetJson);
         } else {
@@ -63,11 +77,11 @@ function sanitizeDamJson(damJson: any): any {
 
   Object.keys(damJson).forEach(async key => {
     const sanitizedKey = key
-      .replace(/^@path/, 'path')
-      .replace(/^@/, '')
-      .replace(/^mgnl:/, '')
-      .replace(/^jcr:uuid/, 'id')
-      .replace(/^jcr:mimeType/, 'mimeType');
+      .replace(/^@path/, "path")
+      .replace(/^@/, "")
+      .replace(/^mgnl:/, "")
+      .replace(/^jcr:uuid/, "id")
+      .replace(/^jcr:mimeType/, "mimeType");
 
     if (!sanitizedKey.match(/^jcr:/)) {
       sanitized[sanitizedKey] = damJson[key];
@@ -77,30 +91,37 @@ function sanitizeDamJson(damJson: any): any {
   return sanitized;
 }
 
-function downloadAsset(options: MagnoliaSourceOptions, asset: any): Promise<void> {
+function downloadAsset(
+  options: MagnoliaSourceOptions,
+  asset: any
+): Promise<void> {
   return new Promise(resolve => {
     if (asset) {
       const filePath = options.output.assets + asset.path;
       const directory = filePath
-        .split('/')
+        .split("/")
         .slice(0, -1)
-        .join('/');
+        .join("/");
 
       fs.mkdirpSync(directory);
 
       request
-        .get(options.magnolia.url + '/dam/jcr:' + asset.id, {
+        .get(options.magnolia.url + "/dam/jcr:" + asset.id, {
           headers: {
             Authorization: options.magnolia.auth.header,
-            'User-Agent': 'Paperboy'
-          }
+            "User-Agent": "Paperboy"
+          },
+          timeout: 60 * 1000
         })
-        .on('response', res => {
+        .on("response", res => {
           res.pipe(fs.createWriteStream(filePath));
 
-          res.on('end', () => {
+          res.on("end", () => {
             resolve();
           });
+        })
+        .on("error", function(error) {
+          reject(new Error(`Could not fetch asset ${asset.id}: ${error}`));
         });
     } else {
       resolve();

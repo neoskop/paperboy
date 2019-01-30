@@ -1,4 +1,5 @@
 import { OperationOptions } from "retry";
+import { CoreOptions } from "request";
 
 export interface MagnoliaLoadingParams<T> {
   authHeader: string;

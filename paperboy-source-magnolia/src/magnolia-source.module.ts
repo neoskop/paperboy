@@ -1,4 +1,4 @@
-import { connect, Message } from "amqplib";
+import { connect, Message, Connection } from "amqplib";
 
 import { Source, SourceCallback, SourceOptions } from "@neoskop/paperboy";
 
@@ -12,6 +12,7 @@ import {
   writePagesFile,
   writeWorkspaceFile
 } from "./pages.util";
+import * as retry from "retry";
 
 import AsyncLock = require("async-lock");
 
@@ -30,7 +31,9 @@ export class MagnoliaSource implements Source {
       const sitemap = await fetchSitemap(this.options);
       const website = await fetchPages(this.options);
       const pages = sitemap
-        .map(path => website.find((page: any) => page["@path"] === path))
+        .map(
+          path => website && website.find((page: any) => page["@path"] === path)
+        )
         .filter(page => typeof page !== "undefined");
 
       const workspaces: { [workspace: string]: any } = {};
@@ -93,46 +96,59 @@ export class MagnoliaSource implements Source {
   }
 
   public async start(): Promise<void> {
-    connect(this.options.queue.uri)
-      .then(conn => {
-        conn.on("error", this.retryConnection.bind(this, this.options.queue));
-        return conn.createChannel();
-      })
-      .then(channel => {
-        channel
-          .assertExchange(
+    const operation = retry.operation({ forever: true });
+    let conn: Connection;
+    operation.attempt(
+      async () => {
+        try {
+          conn = await connect(this.options.queue.uri);
+          ["error", "close"].forEach($event =>
+            conn.on($event, this.retryConnection.bind(this, this.options.queue))
+          );
+          const channel = await conn.createChannel();
+
+          await channel.assertExchange(
             this.options.queue.exchangeName || "paperboy",
             "fanout",
             {
               durable: false
             }
-          )
-          .then(() => {
-            return channel.assertQueue(null, {
-              autoDelete: true
-            });
-          })
-          .then(qok => {
-            channel.bindQueue(
-              qok.queue,
-              this.options.queue.exchangeName || "paperboy",
-              ""
-            );
-            channel.consume(qok.queue, this.consumeMessage.bind(this), {
-              noAck: true
-            });
+          );
+
+          const qok = await channel.assertQueue(null, {
+            autoDelete: true
           });
-      })
-      .catch(() => {
-        this.retryConnection();
-      });
+
+          channel.bindQueue(
+            qok.queue,
+            this.options.queue.exchangeName || "paperboy",
+            ""
+          );
+
+          channel.consume(qok.queue, this.consumeMessage.bind(this), {
+            noAck: true
+          });
+        } catch (error) {
+          if (operation.retry(error)) {
+            console.error(`Could not establish connection to queue: ${error}`);
+            return;
+          }
+        }
+      },
+      {
+        timeout: 10 * 1000,
+        callback: () => {
+          if (conn) {
+            conn.close();
+          }
+        }
+      }
+    );
   }
 
   private retryConnection() {
-    console.info("Connection to queue failed, will retry in 10s...");
-    setTimeout(() => {
-      this.start();
-    }, 10000);
+    console.info("Connection to queue dropped...");
+    this.start();
   }
 
   private consumeMessage(message: Message | null) {

@@ -50,13 +50,15 @@ function loadDataFromMagnolia<T>(params: MagnoliaLoadingParams<T>) {
           headers: {
             Authorization: params.authHeader,
             "User-Agent": "Paperboy"
-          }
+          },
+          timeout: 60 * 1000
         },
         (error, response, body: T) => {
           const operationError =
-            error || (response && response.statusCode !== 200)
+            error ||
+            (response && response.statusCode !== 200
               ? new Error(`Return code was: ${response.statusCode}`)
-              : undefined;
+              : undefined);
 
           if (operation.retry(operationError)) {
             console.error(params.errorMessage);
