@@ -6,6 +6,13 @@ if [[ "$#" != "1" ]] || [[ ! "$1" =~ ^(patch|minor|major)$ ]]; then
   exit 1
 fi
 
+if [[ `git status --porcelain` ]]; then
+  echo -e "The repository has changes. Commit first...\033[0;31mAborting!\033[0m"
+  exit 1
+fi
+
+git pull --rebase
+
 cd paperboy-core
 npm i
 npm run build
@@ -22,15 +29,11 @@ npm publish
 
 cd ../paperboy-cli
 cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperboy\" = \"$version\" | .dependencies.\"@neoskop/paperboy-source-magnolia\" = \"$version\"" > package.json.new
+mv package.json.new package.json
 npm i
 
-# if command -v perl; then
-#   perl -pie "s/version\('[0-9]+\.[0-9]+\.[0-9]+'\)/version('$version')/g" paperboy-cli.js
-# else
-#   echo -e "Since you don't seem to have \033[1mperl\033[0m installed, please bump the version \033[1mpaperboy-cli.js\033[0m to \033[1m$version\033[0m manually"
-# fi
-
-mv package.json.new package.json
+sed -i.bak "s/version('[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+')/version('$version')/g" paperboy-cli.js
+rm -rf paperboy-cli.js.bak
 npm publish
 
 cd ../paperboy-push-service
@@ -39,3 +42,9 @@ mv package.json.new package.json
 npm i
 npm run build
 npm publish
+cd ../
+
+git add .
+git commit -m "chore(): Bump version to ${version}."
+git tag ${version}
+git push origin $version
