@@ -1,6 +1,6 @@
 FROM node:10.6.0
 
-ENV ENV PAPERBOY_VERSION 0.10.2
+ENV ENV PAPERBOY_VERSION 1.1.2
 
 RUN apt-get update -qq && \
     apt-get install -y -qq nginx supervisor && \

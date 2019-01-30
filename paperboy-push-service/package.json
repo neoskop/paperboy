@@ -16,25 +16,25 @@
     "debug": "node -r ts-node/register --inspect ./src/index.ts"
   },
   "devDependencies": {
-    "@types/amqplib": "0.5.2",
-    "@types/convict": "4.2.0",
-    "@types/express": "4.16.0",
-    "@types/node": "10.3.6",
-    "@types/passport": "0.4.5",
+    "@types/amqplib": "0.5.9",
+    "@types/convict": "4.2.1",
+    "@types/express": "4.16.1",
+    "@types/node": "10.12.19",
+    "@types/passport": "1.0.0",
     "@types/passport-http-bearer": "1.0.33",
-    "nodemon": "1.17.5",
-    "ts-node": "7.0.0",
-    "tslint": "5.10.0",
-    "typescript": "2.9.2"
+    "nodemon": "1.18.9",
+    "ts-node": "8.0.2",
+    "tslint": "5.12.1",
+    "typescript": "3.2.4"
   },
   "author": "Arne Diekmann <diekmann@neoskop.de>",
   "engines": {
     "node": ">=8.12.0"
   },
   "dependencies": {
-    "amqplib": "0.5.2",
-    "convict": "4.3.2",
-    "express": "4.16.3",
+    "amqplib": "0.5.3",
+    "convict": "4.4.1",
+    "express": "4.16.4",
     "passport": "0.4.0",
     "passport-http-bearer": "1.0.1"
   }

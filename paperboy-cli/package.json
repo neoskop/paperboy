@@ -13,11 +13,11 @@
   "scripts": {},
   "author": "Neoskop GmbH",
   "dependencies": {
-    "@neoskop/paperboy": "1.1.1",
-    "@neoskop/paperboy-source-magnolia": "1.1.1",
-    "chalk": "2.4.1",
+    "@neoskop/paperboy": "1.1.2",
+    "@neoskop/paperboy-source-magnolia": "1.1.2",
+    "chalk": "2.4.2",
     "commander": "2.19.0",
-    "inquirer": "6.2.0"
+    "inquirer": "6.2.1"
   },
   "engines": {
     "node": ">=8.12.0"

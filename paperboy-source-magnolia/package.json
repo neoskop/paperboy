@@ -17,24 +17,24 @@
   },
   "author": "Neoskop GmbH",
   "devDependencies": {
-    "@neoskop/paperboy": "1.1.1",
-    "@types/amqplib": "0.5.6",
+    "@neoskop/paperboy": "1.1.2",
+    "@types/amqplib": "0.5.9",
     "@types/async-lock": "1.1.0",
-    "@types/fs-extra": "5.0.0",
-    "@types/node": "8.0.51",
-    "@types/request": "2.0.9",
-    "@types/retry": "0.10.2",
-    "@types/shelljs": "0.8.1",
-    "rimraf": "2.6.2",
-    "ts-node": "3.3.0",
-    "tslint": "5.8.0",
-    "typescript": "2.6.1"
+    "@types/fs-extra": "5.0.4",
+    "@types/node": "10.12.19",
+    "@types/request": "2.48.1",
+    "@types/retry": "0.12.0",
+    "@types/shelljs": "0.8.2",
+    "rimraf": "2.6.3",
+    "ts-node": "8.0.2",
+    "tslint": "5.12.1",
+    "typescript": "3.2.4"
   },
   "dependencies": {
-    "amqplib": "0.5.2",
-    "async-lock": "1.1.2",
-    "fs-extra": "5.0.0",
+    "amqplib": "0.5.3",
+    "async-lock": "1.1.3",
+    "fs-extra": "7.0.1",
     "request": "2.88.0",
-    "retry": "0.10.1"
+    "retry": "0.12.0"
   }
 }
