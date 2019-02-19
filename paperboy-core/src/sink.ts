@@ -30,7 +30,7 @@ export class Sink {
         if (returnValue.code === 0) {
           resolve(returnValue);
         } else {
-          reject(returnValue);
+          reject(returnValue.code);
         }
       }
     });

@@ -1,10 +1,11 @@
-import { ExecOutputReturnValue } from "shelljs";
-import * as winston from "winston";
-import * as shelljs from "shelljs";
+import * as retry from 'retry';
+import { ExecOutputReturnValue } from 'shelljs';
+import * as shelljs from 'shelljs';
 
-import { PaperboyOptions } from "./interfaces/paperboy-options.interface";
-import { Source } from "./interfaces/source.interface";
-import { Sink } from "./sink";
+import { PaperboyOptions } from './interfaces/paperboy-options.interface';
+import { Source } from './interfaces/source.interface';
+import { logger } from './logger';
+import { Sink } from './sink';
 
 export class Paperboy {
   private options: PaperboyOptions;
@@ -22,13 +23,23 @@ export class Paperboy {
     }
 
     return this.source.generate().catch((err: any) => {
-      winston.error("Generation from source failed", err);
+      logger.error('Generation from source failed', err);
     });
   }
 
   public async toSink(): Promise<void | ExecOutputReturnValue> {
-    return this.sink.build().catch((err: any) => {
-      winston.error("Building to sink failed", err);
+    const operation = retry.operation({forever: true});
+    await operation.attempt(async () => {
+      try {
+        await this.sink.build();
+      } catch (error) {
+        logger.error(`Build process failed with exit code: ${error}`);
+
+        if (operation.retry(error)) {
+          logger.warn('Retrying build...');
+          return;
+        }
+      }
     });
   }
 
