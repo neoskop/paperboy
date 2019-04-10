@@ -207,18 +207,14 @@ export function sanitizeJson(
                       workspace: "dam"
                     });
                   } else {
-                    const workspaceNode = Object.keys(workspaces)
-                      .map(key => workspaces[key])
-                      .map(workspace =>
-                        Object.assign({}, getPopulatedNode(item, workspace), {
-                          workspace: key
-                        })
-                      )
-                      .shift();
-
-                    value = Object.assign(workspaceNode || {}, {
-                      workspace: workspaceNode ? workspaceNode.workspace : null
-                    });
+                    value = {};
+                    Object.keys(workspaces)
+                        .forEach(key => {
+                          const foundItem = getPopulatedNode(item, workspaces[key]);
+                          if (foundItem) {
+                            value = Object.assign({}, foundItem, { workspace: key });
+                          }
+                        });
                   }
                 }
 
