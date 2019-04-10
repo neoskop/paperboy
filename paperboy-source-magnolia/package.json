@@ -1,6 +1,6 @@
 {
   "name": "@neoskop/paperboy-source-magnolia",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "",
   "repository": "https://github.com/neoskop/paperboy",
   "homepage": "https://neolabs.io",
@@ -17,7 +17,7 @@
   },
   "author": "Neoskop GmbH",
   "devDependencies": {
-    "@neoskop/paperboy": "1.1.6",
+    "@neoskop/paperboy": "1.1.7",
     "@types/amqplib": "0.5.9",
     "@types/async-lock": "1.1.0",
     "@types/fs-extra": "5.0.4",
