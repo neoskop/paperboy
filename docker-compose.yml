@@ -9,7 +9,7 @@ services:
     hostname: paperboy_queue
     environment:
       RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: Boo4bah3ohcohthaeHa5ohter0iSeeS0
+      RABBITMQ_DEFAULT_PASS: admin
     ports:
       - "15672:15672"
       - "5672:5672"
@@ -17,10 +17,6 @@ services:
     build:
       context: paperboy-push-service
       target: development
-    environment:
-      QUEUE_URI: amqp://admin:Boo4bah3ohcohthaeHa5ohter0iSeeS0@queue:5672
-      QUEUE_EXCHANGE: paperboy,paperboy_preview
-      API_TOKEN: eash9uk3eejak6ena7thi8DooMih5eax
     ports:
       - "8081:8080"
     depends_on:
