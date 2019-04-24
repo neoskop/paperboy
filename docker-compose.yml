@@ -22,4 +22,4 @@ services:
     depends_on:
       - queue
     volumes:
-      - ./paperboy-push-service/src:/home/node/src:ro,consistent
+      - ./paperboy-push-service/src:/home/node/app/src:ro,consistent
