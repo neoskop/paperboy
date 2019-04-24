@@ -13,14 +13,17 @@ export class AMQPHealthIndicator extends HealthIndicator {
     key: string,
     queueUri: string,
   ): Promise<HealthIndicatorResult> {
-    let isHealthy: boolean;
+    let isHealthy: boolean = false;
 
     try {
       const connection = await connect(queueUri);
-      isHealthy = connection !== null;
-      connection.close();
+
+      if (connection !== null) {
+        isHealthy = true;
+        connection.close();
+      }
     } catch (err) {
-      isHealthy = false;
+      // ignored
     }
 
     const result = this.getStatus(key, isHealthy);
