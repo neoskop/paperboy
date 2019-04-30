@@ -9,7 +9,7 @@ export class QueueService {
   private connection: Connection;
   private channel: Channel;
   private readonly activeLock: AsyncLock = new AsyncLock({ maxPending: 1 });
-  private readonly locks: { [key: string]: AsyncLock };
+  // private readonly locks: { [key: string]: AsyncLock };
 
   constructor(private configService: ConfigService) {
     this.connectToQueue();

@@ -1,7 +1,7 @@
+import * as Joi from '@hapi/joi';
 import { Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
-import * as Joi from 'joi';
 
 export interface EnvConfig {
   [key: string]: string;
