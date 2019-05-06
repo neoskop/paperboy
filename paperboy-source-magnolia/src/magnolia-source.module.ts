@@ -1,7 +1,6 @@
-import { connect, Message, Connection } from "amqplib";
-
 import { Source, SourceCallback, SourceOptions } from "@neoskop/paperboy";
-
+import { connect, Connection, Message } from "amqplib";
+import * as retry from "retry";
 import { fetchDamAssets } from "./dam.util";
 import { MagnoliaSourceOptions } from "./magnolia-source-options.interface";
 import {
@@ -12,7 +11,6 @@ import {
   writePagesFile,
   writeWorkspaceFile
 } from "./pages.util";
-import * as retry from "retry";
 
 import AsyncLock = require("async-lock");
 
@@ -152,11 +150,8 @@ export class MagnoliaSource implements Source {
   }
 
   private consumeMessage(message: Message | null) {
-    console.info(
-      "[x] from Magnolia: %s -> '%s'",
-      message.fields.routingKey,
-      message.content.toString()
-    );
+    const content = JSON.parse(message.content.toString());
+    console.info(`[x] from ${content.source}`);
 
     this.generationLock.acquire(
       "generationLock",
