@@ -11,6 +11,7 @@ public class SendChangeCommand extends MgnlCommand {
   @Override
   public boolean execute(Context context) {
     final String workspace = (String) context.get("workspace");
+
     final Change change = new Change(StringUtils.isBlank(workspace) ? "website" : workspace);
     return Components.getComponent(ChangeAnnouncementService.class).announce(change);
   }
