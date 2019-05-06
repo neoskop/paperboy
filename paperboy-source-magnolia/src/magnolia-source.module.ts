@@ -100,9 +100,6 @@ export class MagnoliaSource implements Source {
       async () => {
         try {
           conn = await connect(this.options.queue.uri);
-          ["error", "close"].forEach($event =>
-            conn.on($event, this.retryConnection.bind(this, this.options.queue))
-          );
           const channel = await conn.createChannel();
 
           await channel.assertExchange(
@@ -126,6 +123,13 @@ export class MagnoliaSource implements Source {
           channel.consume(qok.queue, this.consumeMessage.bind(this), {
             noAck: true
           });
+
+          ["error", "close"].forEach($event =>
+            conn.once(
+              $event,
+              this.retryConnection.bind(this, this.options.queue)
+            )
+          );
         } catch (error) {
           if (operation.retry(error)) {
             console.error(`Could not establish connection to queue: ${error}`);
@@ -145,8 +149,10 @@ export class MagnoliaSource implements Source {
   }
 
   private retryConnection() {
-    console.info("Connection to queue dropped...");
-    this.start();
+    console.log(
+      "Connection to queue dropped. Will start attempting to reconnect in 5 seconds."
+    );
+    setTimeout(this.start.bind(this), 5000);
   }
 
   private consumeMessage(message: Message | null) {

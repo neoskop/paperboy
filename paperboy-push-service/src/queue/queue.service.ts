@@ -86,10 +86,10 @@ export class QueueService {
       async () => {
         try {
           this.connection = await connect(this.configService.queueUri);
-          ['error', 'close'].forEach($event =>
-            this.connection.on($event, this.retryConnection.bind(this)),
-          );
           this.channel = await this.connection.createChannel();
+          ['error', 'close'].forEach($event =>
+            this.connection.once($event, this.retryConnection.bind(this)),
+          );
         } catch (error) {
           if (operation.retry(error)) {
             Logger.error(`Could not establish connection to queue: ${error}`);
@@ -109,7 +109,9 @@ export class QueueService {
   }
 
   private retryConnection() {
-    Logger.log('Connection to queue dropped...');
-    this.connectToQueue();
+    Logger.log(
+      'Connection to queue dropped. Will start attempting to reconnect in 5 seconds.',
+    );
+    setTimeout(this.connectToQueue.bind(this), 5000);
   }
 }
