@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   queue:
-    image: rabbitmq:3.7.0-management
+    image: rabbitmq:3.7.14-management
     deploy:
       replicas: 1
       restart_policy:
