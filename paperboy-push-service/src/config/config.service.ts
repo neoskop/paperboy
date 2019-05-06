@@ -26,6 +26,7 @@ export class ConfigService {
       QUEUE_URI: Joi.string().required(),
       QUEUE_EXCHANGE: Joi.string().default('paperboy'),
       QUEUE_SOURCE: Joi.string().default('push-notifier'),
+      QUEUE_MESSAGE_EXPIRATION: Joi.number().default(10),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
@@ -56,5 +57,9 @@ export class ConfigService {
 
   get queueSource(): string {
     return this.envConfig.QUEUE_SOURCE;
+  }
+
+  get queueMessageExpiration(): number {
+    return Number(this.envConfig.QUEUE_MESSAGE_EXPIRATION);
   }
 }

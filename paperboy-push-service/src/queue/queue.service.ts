@@ -9,7 +9,6 @@ export class QueueService {
   private connection: Connection;
   private channel: Channel;
   private readonly activeLock: AsyncLock = new AsyncLock({ maxPending: 1 });
-  // private readonly locks: { [key: string]: AsyncLock };
 
   constructor(private configService: ConfigService) {
     this.connectToQueue();
@@ -65,6 +64,13 @@ export class QueueService {
                 exchange,
                 '',
                 Buffer.from(JSON.stringify(message)),
+                {
+                  expiration: this.configService.queueMessageExpiration * 1000,
+                  contentType: 'application/json',
+                  contentEncoding: 'UTF-8',
+                  appId: 'paperboy-push-service',
+                  persistent: false,
+                },
               );
             });
         });
