@@ -244,7 +244,7 @@ export function getPopulatedNode(
   if (populatedNode || !source) {
     return populatedNode;
   } else {
-    if (source["jcr:uuid"] === id || source.id === id) {
+    if (source["jcr:uuid"] === id || source.id === id || source["@id"] === id) {
       populatedNode = {
         id,
         path: source["@path"] || source.path
