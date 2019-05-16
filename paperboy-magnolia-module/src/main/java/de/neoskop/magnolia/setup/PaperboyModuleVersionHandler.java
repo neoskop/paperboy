@@ -2,11 +2,23 @@ package de.neoskop.magnolia.setup;
 
 import static info.magnolia.repository.RepositoryConstants.CONFIG;
 
-import info.magnolia.module.DefaultModuleVersionHandler;
-import info.magnolia.module.InstallContext;
-import info.magnolia.module.delta.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.apache.commons.lang3.StringUtils;
+
+import de.neoskop.magnolia.PaperboyModule;
+import de.neoskop.magnolia.task.ChangePasswordTask;
+import info.magnolia.module.DefaultModuleVersionHandler;
+import info.magnolia.module.InstallContext;
+import info.magnolia.module.delta.DeltaBuilder;
+import info.magnolia.module.delta.ModuleBootstrapTask;
+import info.magnolia.module.delta.SamplesBootstrapTask;
+import info.magnolia.module.delta.SetPropertyTask;
+import info.magnolia.module.delta.Task;
 
 /**
  * This class is optional and lets you manage the versions of your module, by registering "deltas"
@@ -45,6 +57,18 @@ public class PaperboyModuleVersionHandler extends DefaultModuleVersionHandler {
             "de.neoskop.magnolia.extension.NativePagePreviewLink"));
   }
 
+  private static List<Task> getWriteConfigViaEnvironmentTasks() {
+    List<Task> tasks = new ArrayList<>();
+
+    String userPassword = System.getenv(PaperboyModule.GLOBAL_ENV_PREFIX + "USER_PASSWORD");
+
+    if (StringUtils.isNotBlank(userPassword)) {
+      tasks.add(new ChangePasswordTask("/admin/paperboy", userPassword));
+    }
+
+    return tasks;
+  }
+
   @Override
   protected List<Task> getExtraInstallTasks(InstallContext installContext) {
     return getSetupPreviewTasks();
@@ -52,6 +76,8 @@ public class PaperboyModuleVersionHandler extends DefaultModuleVersionHandler {
 
   @Override
   protected List<Task> getStartupTasks(InstallContext installContext) {
-    return getSetupPreviewTasks();
+    return Stream.concat(
+            getSetupPreviewTasks().stream(), getWriteConfigViaEnvironmentTasks().stream())
+        .collect(Collectors.toList());
   }
 }

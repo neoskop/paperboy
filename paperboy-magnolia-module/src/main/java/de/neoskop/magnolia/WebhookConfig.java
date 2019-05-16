@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class WebhookConfig {
-  public static final String ENV_PREFIX = "WEBHOOK_";
+  public static final String ENV_PREFIX = PaperboyModule.GLOBAL_ENV_PREFIX + "WEBHOOK_";
   private String url;
   private WebhookAuthorization authorization = WebhookAuthorization.NONE;
   private String bearerToken;

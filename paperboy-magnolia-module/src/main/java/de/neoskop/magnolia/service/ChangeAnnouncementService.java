@@ -46,6 +46,11 @@ public class ChangeAnnouncementService {
   }
 
   public boolean announce(final Change change) {
+    if (!module.isEnabled()) {
+      LOG.debug("Dropping change since Paperboy is disabled");
+      return true;
+    }
+
     final Request.Builder requestBuilder = module.getWebhookConfig().prepareRequest();
     final Message message = new Message(this.source, change);
     final Request request =
