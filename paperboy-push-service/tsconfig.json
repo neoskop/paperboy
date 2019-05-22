@@ -10,8 +10,6 @@
     "outDir": "./dist",
     "baseUrl": "./"
   },
-  "files": [
-    "src/main.ts"
-  ],
+  "files": ["src/main.ts"],
   "exclude": ["node_modules"]
 }

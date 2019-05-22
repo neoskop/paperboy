@@ -2,10 +2,6 @@ version: '3.4'
 services:
   queue:
     image: rabbitmq:3.7.14-management
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
     hostname: paperboy_queue
     environment:
       RABBITMQ_DEFAULT_USER: admin
@@ -19,7 +15,10 @@ services:
       target: development
     ports:
       - "8081:8080"
+    environment: 
+      CONFIG: rabbitmq
     depends_on:
       - queue
     volumes:
       - ./paperboy-push-service/src:/home/node/app/src:ro,consistent
+      - ./paperboy-push-service/config:/home/node/app/config:ro,consistent

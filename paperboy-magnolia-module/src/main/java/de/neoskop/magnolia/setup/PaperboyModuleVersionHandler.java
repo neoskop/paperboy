@@ -2,14 +2,6 @@ package de.neoskop.magnolia.setup;
 
 import static info.magnolia.repository.RepositoryConstants.CONFIG;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.apache.commons.lang3.StringUtils;
-
 import de.neoskop.magnolia.PaperboyModule;
 import de.neoskop.magnolia.task.ChangePasswordTask;
 import info.magnolia.module.DefaultModuleVersionHandler;
@@ -19,6 +11,12 @@ import info.magnolia.module.delta.ModuleBootstrapTask;
 import info.magnolia.module.delta.SamplesBootstrapTask;
 import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class is optional and lets you manage the versions of your module, by registering "deltas"

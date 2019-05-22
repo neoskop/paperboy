@@ -5,12 +5,12 @@ import {
   TerminusOptionsFactory,
 } from '@nestjs/terminus';
 import { ConfigService } from '../config/config.service';
-import { AMQPHealthIndicator } from './amqp.health';
+import { QueueHealthIndicator } from './queue.health';
 
 @Injectable()
 export class TerminusOptionsService implements TerminusOptionsFactory {
   constructor(
-    private readonly amqp: AMQPHealthIndicator,
+    private readonly healthIndicator: QueueHealthIndicator,
     private readonly config: ConfigService,
   ) {}
 
@@ -18,7 +18,8 @@ export class TerminusOptionsService implements TerminusOptionsFactory {
     const healthEndpoint: TerminusEndpoint = {
       url: '/health',
       healthIndicators: [
-        async () => this.amqp.isHealthy('queue', this.config.queueUri),
+        async () =>
+          this.healthIndicator.isHealthy('queue', this.config.queueUri),
       ],
     };
     return {

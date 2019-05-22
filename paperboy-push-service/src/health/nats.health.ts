@@ -1,10 +1,11 @@
 import { HealthCheckError } from '@godaddy/terminus';
 import { Injectable } from '@nestjs/common';
-import { HealthIndicator, HealthIndicatorResult } from '@nestjs/terminus';
-import { connect } from 'amqplib';
+import { HealthIndicatorResult } from '@nestjs/terminus';
+import { connect } from 'ts-nats';
+import { QueueHealthIndicator } from './queue.health';
 
 @Injectable()
-export class AMQPHealthIndicator extends HealthIndicator {
+export class NatsHealthIndicator extends QueueHealthIndicator {
   constructor() {
     super();
   }
@@ -16,11 +17,11 @@ export class AMQPHealthIndicator extends HealthIndicator {
     let isHealthy: boolean = false;
 
     try {
-      const connection = await connect(queueUri);
+      const client = await connect(queueUri);
 
-      if (connection !== null) {
+      if (client !== null) {
         isHealthy = true;
-        connection.close();
+        client.close();
       }
     } catch (err) {
       // ignored
@@ -32,6 +33,6 @@ export class AMQPHealthIndicator extends HealthIndicator {
       return result;
     }
 
-    throw new HealthCheckError('Health check of AMQP server failed', result);
+    throw new HealthCheckError('Health check of NATS server failed', result);
   }
 }

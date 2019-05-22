@@ -6,7 +6,7 @@ import { ConfigService } from './config.service';
     {
       provide: ConfigService,
       useValue: new ConfigService(
-        `config/${process.env.NODE_ENV || 'development'}.env`,
+        `config/${process.env.CONFIG || 'rabbitmq'}.env`,
       ),
     },
   ],
