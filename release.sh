@@ -20,15 +20,8 @@ npm version $1
 version=`cat package.json | jq -r .version`
 npm publish
 
-cd ../paperboy-source-magnolia
-cat package.json | jq ".version = \"$version\" | .devDependencies.\"@neoskop/paperboy\" = \"$version\"" > package.json.new
-mv package.json.new package.json
-npm i
-npm run build
-npm publish
-
 cd ../paperboy-cli
-cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperboy\" = \"$version\" | .dependencies.\"@neoskop/paperboy-source-magnolia\" = \"$version\"" > package.json.new
+cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperboy\" = \"$version\"" > package.json.new
 mv package.json.new package.json
 npm i
 

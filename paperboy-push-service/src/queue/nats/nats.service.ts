@@ -25,7 +25,7 @@ export class NatsService extends QueueService {
   protected async connectToQueue() {
     this.client = await connect({
       url: this.configService.queueUri,
-      maxReconnectAttempts: 1,
+      maxReconnectAttempts: -1,
       waitOnFirstConnect: true,
       reconnect: true,
     });

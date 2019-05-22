@@ -8,25 +8,15 @@ Content Delivery Layer
 $ npm add @neoskop/paperboy
 ```
 
-## Configuration
-
-There are two ways to overwerite the default configuration:
-
-- Overwrite the default configuration by adding a **config/default.json** file to your project.
-- Use the options argument of the **generate** function.
-
 ## Usage Example
 
 ```javascript
-import { generate } from '@neoskop/paperboy';
- 
-generate('magnolia', { output: { assets: 'output/assets', json: 'output' } })
-    .then(() => {
-      console.log('Success');
-    }).catch(() => {
-      console.log('Error');
-    });
-``` 
+import { Paperboy } from '@neoskop/paperboy';
+
+new Paperboy({
+  command: 'yarn build'
+});
+```
 
 ##Development
 

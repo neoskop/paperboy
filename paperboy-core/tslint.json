@@ -3,25 +3,20 @@
   "rules": {
     "arrow-parens": false,
     "interface-name": false,
-    "no-angle-bracket-type-assertion": false,
+    "member-access": false,
+    "no-inferrable-types": [true, "ignore-params"],
+    "no-string-throw": true,
+    "no-switch-case-fall-through": true,
+    "no-use-before-declare": true,
     "object-literal-sort-keys": false,
-    "object-literal-key-quotes": false,
-    "no-console": false,
-    "quotemark": [
-      true,
-      "single",
-      "avoid-escape"
-    ],
+    "quotemark": [true, "single"],
     "trailing-comma": false,
-    "whitespace": [
+    "variable-name": [
       true,
-      "check-branch",
-      "check-decl",
-      "check-module",
-      "check-operator",
-      "check-preblock",
-      "check-separator",
-      "check-type"
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
     ]
   }
 }

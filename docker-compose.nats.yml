@@ -3,12 +3,16 @@ services:
   queue:
     image: nats:1.4.1-linux
     hostname: paperboy_queue
+  frontend:
+    build: paperboy-core
+    environment: 
+      QUEUE_URI: nats://queue:4222
   push-service:
     build:
       context: paperboy-push-service
       target: development
     ports:
-      - "8081:8080"
+      - "8080:8080"
     environment: 
       CONFIG: nats
     depends_on:

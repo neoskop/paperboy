@@ -33,8 +33,8 @@ export abstract class QueueService {
     Logger.debug(`Publishing message in queue: ${message}`);
 
     try {
-      this.publishMessage(message);
-      setTimeout(() => {
+      await this.publishMessage(message);
+      setTimeout(async () => {
         const pendingMessage = this.locks[source].pendingMessage;
 
         if (pendingMessage) {
@@ -43,14 +43,17 @@ export abstract class QueueService {
               this.locks[source].pendingMessage
             }`,
           );
-          this.publishMessage(this.locks[source].pendingMessage);
+          await this.publishMessage(this.locks[source].pendingMessage);
         }
 
         delete this.locks[source];
       }, this.configService.timeWindow * 1000);
       return Promise.resolve();
     } catch (err) {
-      Logger.error(`Sending message from ${source} to queue failed.`, err);
+      Logger.error(
+        `Sending message from ${source} to queue failed: ${err.message}`,
+      );
+      delete this.locks[source];
       return Promise.reject(err);
     }
   }

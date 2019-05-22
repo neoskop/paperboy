@@ -1,37 +1,27 @@
 import * as retry from 'retry';
-import { ExecOutputReturnValue } from 'shelljs';
 import * as shelljs from 'shelljs';
-
 import { PaperboyOptions } from './interfaces/paperboy-options.interface';
-import { Source } from './interfaces/source.interface';
 import { logger } from './logger';
-import { Sink } from './sink';
+import { NatsService } from './service/nats.service';
+import { QueueService } from './service/queue.service';
+import { RabbitMQService } from './service/rabbitmq.service';
 
 export class Paperboy {
-  private options: PaperboyOptions;
-  private sink: Sink;
-  private source: Source;
+  constructor(private readonly options: PaperboyOptions) {}
 
-  constructor(options: PaperboyOptions) {
-    this.options = options;
-    this.sink = new Sink(this.options.sink);
-  }
-
-  public async fromSource(): Promise<void> {
-    if (!this.source) {
-      this.source = await this.loadSource();
-    }
-
-    return this.source.generate().catch((err: any) => {
-      logger.error('Generation from source failed', err);
-    });
-  }
-
-  public async toSink(): Promise<void | ExecOutputReturnValue> {
-    const operation = retry.operation({forever: true});
+  public async build(): Promise<void> {
+    const operation = retry.operation({ forever: true });
     await operation.attempt(async () => {
       try {
-        await this.sink.build();
+        return new Promise((resolve, reject) => {
+          const returnValue = shelljs.exec(this.options.command);
+
+          if (returnValue.code === 0) {
+            resolve(returnValue);
+          } else {
+            reject(returnValue.code);
+          }
+        });
       } catch (error) {
         logger.error(`Build process failed with exit code: ${error}`);
 
@@ -43,13 +33,15 @@ export class Paperboy {
     });
   }
 
-  public async build(): Promise<void> {
-    await this.fromSource();
-    await this.toSink();
-  }
-
   public async start(): Promise<void> {
-    this.source = await this.loadSource();
+    if (
+      this.options.queue === undefined ||
+      this.options.queue.uri === undefined
+    ) {
+      throw new Error(
+        'You need to configure the queue when running paperboy start'
+      );
+    }
 
     // initial generation
     await this.build();
@@ -59,14 +51,19 @@ export class Paperboy {
       shelljs.exec(this.options.readinessHook);
     }
 
-    // notify source of completed initial build
-    await this.source.start();
-  }
+    // Start listening to queue
+    let queueService: QueueService;
 
-  private async loadSource(): Promise<Source> {
-    return this.options.source.sourceFactory.buildSource(
-      this.options.source,
-      this.toSink.bind(this)
-    );
+    if (this.options.queue.uri.startsWith('nats')) {
+      queueService = new NatsService(this.options, this.build.bind(this));
+    } else if (this.options.queue.uri.startsWith('amqp')) {
+      queueService = new RabbitMQService(this.options, this.build.bind(this));
+    } else {
+      throw new Error(
+        `Unknown protocol in queue URI ${this.options.queue.uri}`
+      );
+    }
+
+    queueService.listen();
   }
 }

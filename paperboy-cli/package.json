@@ -14,10 +14,9 @@
   "author": "Neoskop GmbH",
   "dependencies": {
     "@neoskop/paperboy": "1.1.9",
-    "@neoskop/paperboy-source-magnolia": "1.1.9",
-    "chalk": "2.4.1",
-    "commander": "2.19.0",
-    "inquirer": "6.2.1"
+    "chalk": "2.4.2",
+    "commander": "2.20.0",
+    "inquirer": "6.3.1"
   },
   "engines": {
     "node": ">=8.12.0"
