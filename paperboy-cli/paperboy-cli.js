@@ -4,9 +4,8 @@ const chalk = require("chalk");
 const fs = require("fs");
 const Paperboy = require("@neoskop/paperboy").Paperboy;
 const program = require("commander");
-const PaperboyMagnoliaSource = require("@neoskop/paperboy-source-magnolia");
 
-program.version("1.1.9").description("Paperboy CLI");
+program.version("2.0.1").description("Paperboy CLI");
 
 program
   .description(
@@ -27,7 +26,8 @@ function setupPaperboy(program, configModifier) {
   try {
     config = JSON.parse(fs.readFileSync(configPath));
   } catch (e) {
-    throw e;
+    console.error(`Config file ${configPath} not found!`);
+    process.exit(1);
   }
 
   if (configModifier) {
@@ -36,10 +36,8 @@ function setupPaperboy(program, configModifier) {
 
   const paperboy = new Paperboy({
     readinessHook: config.readinessHook,
-    source: Object.assign(config.sourceOptions, {
-      sourceFactory: PaperboyMagnoliaSource
-    }),
-    sink: config.sinkOptions
+    command: config.command,
+    queue: config.queue
   });
   return paperboy;
 }
