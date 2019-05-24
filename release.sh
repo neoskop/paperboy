@@ -25,16 +25,16 @@ fi
 
 git pull --rebase
 
-cd paperboy-core
+cd paperboy-magnolia-module
+mvn versions:set -DnewVersion=${version} -DgenerateBackupPoms=false >/dev/null
+find . -name "pom.xml" -exec git add '{}' \;
+
+cd ../paperboy-core
 npm i
 npm run build
 npm version $1
 version=`cat package.json | jq -r .version`
 npm publish
-
-cd ../paperboy-magnolia-module
-mvn versions:set -DnewVersion=${version} -DgenerateBackupPoms=false >/dev/null
-find . -name "pom.xml" -exec git add '{}' \;
 
 cd ../paperboy-cli
 cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperboy\" = \"$version\"" > package.json.new
