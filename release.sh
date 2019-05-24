@@ -51,6 +51,7 @@ npm i
 npm run build
 npm publish
 docker build -t neoskop/paperboy-push-service:$version .
+docker build -t neoskop/paperboy-push-service:latest .
 docker push neoskop/paperboy-push-service:$version
 docker push neoskop/paperboy-push-service:latest
 cd ../
