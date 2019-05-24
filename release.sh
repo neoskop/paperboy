@@ -26,7 +26,7 @@ fi
 git pull --rebase
 
 cd paperboy-magnolia-module
-mvn versions:set -DnewVersion=${version} -DgenerateBackupPoms=false >/dev/null
+mvn versions:set -DnewVersion=${version} -DgenerateBackupPoms=false
 find . -name "pom.xml" -exec git add '{}' \;
 
 cd ../paperboy-core
