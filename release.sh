@@ -34,6 +34,7 @@ npm publish
 
 cd ../paperboy-magnolia-module
 mvn versions:set -DnewVersion=${version} -DgenerateBackupPoms=false
+mvn deploy
 
 cd ../paperboy-cli
 cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperboy\" = \"$version\"" > package.json.new
