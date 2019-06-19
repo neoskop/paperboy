@@ -2,6 +2,7 @@ var Generator = require("yeoman-generator");
 const crypto = require("crypto");
 var v = require("voca");
 const chalk = require("chalk");
+const version = require("../../package.json").version;
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -23,7 +24,7 @@ module.exports = class extends Generator {
       {
         name: "paperboyVersion",
         message: "Enter the paperboy version",
-        default: "2.0.1"
+        default: version
       },
       {
         type: "confirm",
