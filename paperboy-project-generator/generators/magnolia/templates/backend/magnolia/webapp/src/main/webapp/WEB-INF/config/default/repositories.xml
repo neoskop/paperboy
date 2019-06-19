@@ -1,0 +1,99 @@
+<!--
+    $Id$
+-->
+<!DOCTYPE JCR [
+  <!ELEMENT Map (#PCDATA)>
+  <!ATTLIST Map
+    name CDATA #REQUIRED
+    repositoryName CDATA #REQUIRED
+    workspaceName CDATA #REQUIRED>
+  <!ELEMENT JCR (RepositoryMapping|Repository)*>
+  <!ELEMENT param (#PCDATA)>
+  <!ATTLIST param
+    name CDATA #REQUIRED
+    value CDATA #REQUIRED>
+  <!ELEMENT Repository (param|workspace)*>
+  <!ATTLIST Repository
+    loadOnStartup CDATA #REQUIRED
+    name CDATA #REQUIRED
+    provider CDATA #REQUIRED>
+  <!ELEMENT workspace (#PCDATA)>
+  <!ATTLIST workspace
+    name CDATA #REQUIRED>
+  <!ELEMENT RepositoryMapping (Map)*>
+  ]>
+<JCR>
+  <!--
+  Repository name mapping is used internally by the system to search for the defined repository
+  you can have different name defined to a single repository, for instance if you want to use
+  single repository model you can define 4 maps here with the same "repositoryName".
+
+  eg: if you wanna have 2 repository model, repository A for website and config and repository B
+  for users and roles
+
+  <RepositoryMapping>
+    <Map name="website" repositoryName="main" />
+    <Map name="config" repositoryName="main" />
+    <Map name="users" repositoryName="access" />
+    <Map name="userroles" repositoryName="access" />
+  </RepositoryMapping>
+
+  <Repository name="main" provider="info.magnolia.jackrabbit.ProviderImpl" loadOnStartup="true">
+    <param name="configFile" value="WEB-INF/config/repo-conf/jackrabbit-bdb-search.xml" />
+    <param name="repositoryHome" value="repositories/main" />
+    <param name="contextFactoryClass" value="org.apache.jackrabbit.core.jndi.provider.DummyInitialContextFactory" />
+    <param name="providerURL" value="localhost" />
+    <param name="bindName" value="mainAuthor" />
+    <workspace name="website" />
+    <workspace name="config" />
+  </Repository>
+
+  <Repository name="access" provider="info.magnolia.jackrabbit.ProviderImpl" loadOnStartup="true">
+    <param name="configFile" value="WEB-INF/config/repo-conf/jackrabbit-bundle-derby-search.xml" />
+    <param name="repositoryHome" value="repositories/access" />
+    <param name="contextFactoryClass" value="org.apache.jackrabbit.core.jndi.provider.DummyInitialContextFactory" />
+    <param name="providerURL" value="localhost" />
+    <param name="bindName" value="accessAuthor" />
+    <workspace name="users" />
+    <workspace name="userroles" />
+  </Repository>
+
+  and define workspaces website, config, users and userroles in repository specific config
+
+  ##################################################################
+  Parameters used by jackrabbit repository provider
+  ##################################################################
+    1) configFile - configuration file to be used to register repository
+    2) repositoryHome - repository home directory
+    3) customNodeTypes - (optional) if new node types needs to be defined for this repository
+    4) contextFactoryClass - used if Repopsitory is to be registered or retrieved via JNDI
+    5) providerURL - used as JNDI init param
+    6) bindName - this will be used to bind this repository or to find an existing repository with the same name
+
+  -->
+  <RepositoryMapping>
+    <Map name="website" repositoryName="magnolia" workspaceName="website"/>
+    <Map name="config" repositoryName="magnolia" workspaceName="config"/>
+    <Map name="users" repositoryName="magnolia" workspaceName="users"/>
+    <Map name="userroles" repositoryName="magnolia" workspaceName="userroles"/>
+    <Map name="usergroups" repositoryName="magnolia" workspaceName="usergroups"/>
+  </RepositoryMapping>
+
+  <!-- magnolia default repository -->
+  <Repository name="magnolia" provider="info.magnolia.jackrabbit.ProviderImpl" loadOnStartup="true">
+    <param name="configFile" value="${magnolia.repositories.jackrabbit.config}"/>
+    <param name="repositoryHome" value="${magnolia.repositories.home}/magnolia"/>
+    <!-- the default node types are loaded automatically
+      <param name="customNodeTypes" value="WEB-INF/config/repo-conf/nodetypes/magnolia_nodetypes.xml" />
+    -->
+    <param name="contextFactoryClass"
+      value="org.apache.jackrabbit.core.jndi.provider.DummyInitialContextFactory"/>
+    <param name="providerURL" value="localhost"/>
+    <param name="bindName" value="${magnolia.webapp}"/>
+    <workspace name="website"/>
+    <workspace name="config"/>
+    <workspace name="users"/>
+    <workspace name="userroles"/>
+    <workspace name="usergroups"/>
+  </Repository>
+</JCR>

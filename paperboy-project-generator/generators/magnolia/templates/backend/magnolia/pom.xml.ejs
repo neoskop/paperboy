@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.neoskop.magnolia</groupId>
+  <artifactId><%= projectName %></artifactId>
+  <name><%= projectTitle %></name>
+  <version>0.0.1</version>
+  <packaging>pom</packaging>
+  <properties>
+    <magnoliaBundleVersion>6.0</magnoliaBundleVersion>
+    <javaVersion>1.<%= javaVersion %></javaVersion>
+    <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+    <mysql-connector-java.version>5.1.47</mysql-connector-java.version>
+    <paperboy.version>2.0.1</paperboy.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <% if (enterpriseEdition) { %>
+      <dependency>
+        <groupId>info.magnolia.eebundle</groupId>
+        <artifactId>magnolia-enterprise-bundle-parent</artifactId>
+        <version>${magnoliaBundleVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <% } else { %>
+       <dependency>
+        <groupId>info.magnolia.bundle</groupId>
+        <artifactId>magnolia-bundle-parent</artifactId>
+        <version>${magnoliaBundleVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <% } %>
+    </dependencies>
+  </dependencyManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>${javaVersion}</source>
+          <target>${javaVersion}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+    <!-- default resources configuration which will filter your module descriptors -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+      <resource>
+        <filtering>true</filtering>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>META-INF/magnolia/*</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </repository>
+    <repository>
+      <id>magnolia.public</id>
+      <url>https://nexus.magnolia-cms.com/content/groups/public</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <% if (enterpriseEdition) { %>
+    <repository>
+      <id>magnolia.enterprise.releases</id>
+      <url>https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <% } else { %>
+    <repository>
+      <id>magnolia.public.maintenance.releases</id>
+      <url>https://nexus.magnolia-cms.com/content/repositories/magnolia.public.maintenance.releases</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <% } %>
+    <repository>
+      <id>vaadin-addons</id>
+      <url>https://maven.vaadin.com/vaadin-addons</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>bintray-neoskop-magnolia-modules</id>
+      <name>bintray</name>
+      <url>https://neoskop.bintray.com/magnolia-modules</url>
+    </repository>
+  </repositories>
+  <modules>
+    <module>webapp</module>
+  </modules>
+</project>

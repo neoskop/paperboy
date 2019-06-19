@@ -1,0 +1,71 @@
+version: '3.4'
+services:
+  db:
+    image: percona/percona-server:5.7.26
+    command:
+      - --max-allowed-packet=1024M
+      - --lower-case-table-names=1
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      TZ: 'Europe/Berlin'
+      MYSQL_DATABASE: '<%= projectName %>_author'
+    volumes:
+      - ./data:/var/lib/mysql
+<% if (createMagnolia) { %>
+  magnolia:
+    build: backend/magnolia
+    environment:
+      TZ: 'Europe/Berlin'
+      DATASOURCES: |
+        {
+          "datasources": [
+            {
+              "host": "db",
+              "name": "MagnoliaAuthor",
+              "database": "<%= projectName %>_author"
+            }
+          ]
+        }
+      DEVELOPMENT: 'true'
+      PAPERBOY_USER_PASSWORD: '<%= paperboyUserPassword %>'
+      PAPERBOY_WEBHOOK_URL: 'http://push-service:8080/'
+      PAPERBOY_WEBHOOK_BEARER_TOKEN: '<%= apiToken %>'
+      PAPERBOY_AUTHORIZATION: 'BEARER_TOKEN'
+    ports:
+      - '8080:8080'
+      - '5005:5005'
+    volumes:
+      - magnolia-data:/home/tomcat/magnolia_tmp/repositories
+      - ./backend/magnolia:/home/tomcat/repo:ro,consistent
+    depends_on:
+      - db
+<% } %>
+  queue:
+    image: nats:1.4.1-linux
+    ports:
+      - '4222:4222'
+  push-service:
+    image: neoskop/paperboy-push-service:<%= paperboyVersion %>
+    environment: 
+      CONFIG: docker
+    ports:
+      - '8082:8080'
+    depends_on:
+      - queue
+    volumes:
+      - ./push-service.env:/home/node/app/config/docker.env:ro,consistent
+<% if (createFrontend) { %>
+  frontend:
+    build: frontend
+    ports:
+      - '3000:3000'
+      - '4000:4000'
+    environment:
+      PAPERBOY_STAGE: 'docker'
+    depends_on:
+      - queue
+    volumes:
+      - ./frontend/src:/home/node/app/src:consistent
+<% } %>
+volumes:
+  magnolia-data:

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Repository PUBLIC "-//The Apache Software Foundation//DTD Jackrabbit 2.0//EN" "http://jackrabbit.apache.org/dtd/repository-2.0.dtd">
+<Repository>
+	<DataSources>
+		<DataSource name="MagnoliaPublic">
+			<param name="driver" value="javax.naming.InitialContext" />
+			<param name="url" value="java:comp/env/jdbc/MagnoliaPublic" />
+			<param name="databaseType" value="mysql" />
+		</DataSource>
+	</DataSources>
+	<FileSystem class="org.apache.jackrabbit.core.fs.db.DbFileSystem">
+		<param name="dataSourceName" value="MagnoliaPublic" />
+		<param name="schemaObjectPrefix" value="fs_" />
+	</FileSystem>
+	<Security appName="magnolia">
+		<SecurityManager class="org.apache.jackrabbit.core.DefaultSecurityManager" />
+		<AccessManager
+			class="org.apache.jackrabbit.core.security.DefaultAccessManager">
+		</AccessManager>
+		<!-- login module defined here is used by the repo to authenticate every 
+			request. not by the webapp to authenticate user against the webapp context 
+			(this one has to be passed before thing here gets invoked -->
+		<LoginModule
+			class="info.magnolia.jaas.sp.jcr.JackrabbitAuthenticationModule">
+		</LoginModule>
+	</Security>
+	<DataStore class="org.apache.jackrabbit.core.data.db.DbDataStore">
+		<param name="dataSourceName" value="MagnoliaPublic" />
+		<param name="schemaObjectPrefix" value="ds_" />
+	</DataStore>
+	<Workspaces rootPath="${rep.home}/workspaces"
+		defaultWorkspace="default" />
+	<Workspace name="default">
+		<FileSystem class="org.apache.jackrabbit.core.fs.db.DbFileSystem">
+			<param name="dataSourceName" value="MagnoliaPublic" />
+			<param name="schemaObjectPrefix" value="${wsp.name}_" />
+		</FileSystem>
+		<PersistenceManager
+			class="org.apache.jackrabbit.core.persistence.pool.MySqlPersistenceManager">
+			<param name="dataSourceName" value="MagnoliaPublic" />
+			<param name="schemaObjectPrefix" value="pm_${wsp.name}_" />
+		</PersistenceManager>
+		<SearchIndex class="org.apache.jackrabbit.core.query.lucene.SearchIndex">
+			<param name="path" value="${wsp.home}/index" />
+			<param name="useCompoundFile" value="true" />
+			<param name="minMergeDocs" value="100" />
+			<param name="volatileIdleTime" value="3" />
+			<param name="maxMergeDocs" value="100000" />
+			<param name="mergeFactor" value="10" />
+			<param name="maxFieldLength" value="10000" />
+			<param name="bufferSize" value="10" />
+			<param name="cacheSize" value="1000" />
+			<param name="forceConsistencyCheck" value="false" />
+			<param name="autoRepair" value="true" />
+			<!-- see https://issues.apache.org/jira/browse/JCR-3236 for details -->
+			<!--param name="analyzer" value="org.apache.lucene.analysis.standard.StandardAnalyzer" 
+				/ -->
+			<param name="queryClass" value="org.apache.jackrabbit.core.query.QueryImpl" />
+			<param name="respectDocumentOrder" value="true" />
+			<param name="resultFetchSize" value="2147483647" />
+			<param name="extractorPoolSize" value="3" />
+			<param name="extractorTimeout" value="100" />
+			<param name="extractorBackLogSize" value="100" />
+			<param name="supportHighlighting" value="true" />
+			<param name="excerptProviderClass" value="info.magnolia.jackrabbit.lucene.SearchHTMLExcerpt" />
+		</SearchIndex>
+		<WorkspaceSecurity>
+			<AccessControlProvider
+				class="info.magnolia.cms.core.MagnoliaAccessProvider" />
+		</WorkspaceSecurity>
+	</Workspace>
+	<Versioning rootPath="${rep.home}/version">
+		<FileSystem class="org.apache.jackrabbit.core.fs.db.DbFileSystem">
+			<param name="dataSourceName" value="MagnoliaPublic" />
+			<param name="schemaObjectPrefix" value="version_" />
+		</FileSystem>
+		<PersistenceManager
+			class="org.apache.jackrabbit.core.persistence.pool.MySqlPersistenceManager">
+			<param name="dataSourceName" value="MagnoliaPublic" />
+			<param name="schemaObjectPrefix" value="version_" />
+		</PersistenceManager>
+	</Versioning>
+</Repository>
