@@ -53,7 +53,21 @@ $ curl -X POST \
 
 ## Quickstart
 
-To quick start your project set-up, execute the stepts in [Frontend Set-Up](#frontend-set-up) and [Magnolia Set-Up](#magnolia-set-up). Afterward eitehr execute the steps from [Custom delivery layer](#custom-delivery-layer) or [Netlify](#netlify) depending on your setup.
+Install [Yeoman](https://yeoman.io/) and our generator:
+
+```
+$ npm install -g yo generator-paperboy
+```
+
+Afterwards just start a wizard via:
+
+```
+$ yo paperboy
+```
+
+## Manual installation
+
+To get started with your project, execute the stepts in [Frontend Set-Up](#frontend-set-up) and [Magnolia Set-Up](#magnolia-set-up). Afterwards either execute the steps from [Custom delivery layer](#custom-delivery-layer) or [Netlify](#netlify) depending on your setup.
 
 ### Frontend Set-Up
 
