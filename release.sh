@@ -30,7 +30,7 @@ yarn
 npm version $1
 npm publish
 
-cd paperboy-core
+cd ../paperboy-core
 yarn
 yarn build
 npm version $1
