@@ -25,9 +25,14 @@ fi
 
 git pull --rebase
 
+cd paperboy-project-generator
+yarn
+npm version $1
+npm publish
+
 cd paperboy-core
-npm i
-npm run build
+yarn
+yarn build
 npm version $1
 version=`cat package.json | jq -r .version`
 npm publish
@@ -39,7 +44,7 @@ mvn deploy
 cd ../paperboy-cli
 cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperboy\" = \"$version\"" > package.json.new
 mv package.json.new package.json
-npm i
+yarn
 
 sed -i.bak "s/version('[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+')/version('$version')/g" paperboy-cli.js
 rm -rf paperboy-cli.js.bak
@@ -48,8 +53,8 @@ npm publish
 cd ../paperboy-push-service
 cat package.json | jq ".version = \"$version\"" > package.json.new
 mv package.json.new package.json
-npm i
-npm run build
+yarn
+yarn build
 npm publish
 docker build -t neoskop/paperboy-push-service:$version .
 docker build -t neoskop/paperboy-push-service:latest .
