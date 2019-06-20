@@ -9,12 +9,12 @@ module.exports = class extends Generator {
     super(args, opts);
   }
 
-  async ask() {
+  async initializing() {
     this.answers = await this.prompt([
       {
         name: "projectName",
         message: "Enter your project name",
-        default: this.appname
+        default: v.kebabCase(this.appname)
       },
       {
         name: "projectTitle",
@@ -39,14 +39,10 @@ module.exports = class extends Generator {
         default: true
       }
     ]);
-  }
 
-  generateSecrets() {
     this.apiToken = crypto.randomBytes(24).toString("hex");
     this.paperboyUserPassword = crypto.randomBytes(24).toString("hex");
-  }
 
-  setup() {
     if (this.answers.createMagnolia) {
       this.composeWith(require.resolve("../magnolia"), {
         projectName: this.answers.projectName,
@@ -61,7 +57,9 @@ module.exports = class extends Generator {
         paperboyVersion: this.answers.paperboyVersion
       });
     }
+  }
 
+  writing() {
     this.fs.copyTpl(
       this.templatePath("docker-compose.yml.ejs"),
       this.destinationPath("docker-compose.yml"),
