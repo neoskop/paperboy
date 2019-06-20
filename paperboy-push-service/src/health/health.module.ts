@@ -12,7 +12,7 @@ import { TerminusOptionsService } from './terminus-options.service';
     ConfigModule,
     TerminusModule.forRootAsync({
       useClass: TerminusOptionsService,
-      imports: [HealthModule],
+      imports: [HealthModule, ConfigModule],
       inject: [QueueHealthIndicator, ConfigService],
     }),
   ],
