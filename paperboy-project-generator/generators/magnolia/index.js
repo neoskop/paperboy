@@ -7,8 +7,12 @@ module.exports = class extends Generator {
     super(args, opts);
     this.option("projectName", { type: String, required: true });
     this.option("projectTitle", { type: String, required: true });
+    this.option("restVersion", { type: String, required: true });
+    this.option("paperboyVersion", { type: String, required: true });
     this.projectName = this.options.projectName;
     this.projectTitle = this.options.projectTitle;
+    this.restVersion = this.options.restVersion;
+    this.paperboyVersion = this.options.paperboyVersion;
   }
 
   async promting() {
@@ -70,6 +74,8 @@ module.exports = class extends Generator {
       {
         projectName: this.projectName,
         projectTitle: this.projectTitle,
+        paperboyVersion: this.paperboyVersion,
+        restVersion: this.restVersion,
         ...this.answers
       }
     );
@@ -127,9 +133,7 @@ module.exports = class extends Generator {
       ),
       this.answers
     );
-  }
 
-  install() {
     const pathToCLI = `${path.dirname(
       require.resolve("@magnolia/cli/package.json")
     )}/bin/mgnl.js`;
@@ -140,6 +144,19 @@ module.exports = class extends Generator {
       "backend/magnolia/light-modules",
       this.projectName
     ]);
+
+    this.fs.copyTpl(
+      this.templatePath("pages.yaml.ejs"),
+      this.destinationPath(
+        `backend/magnolia/light-modules/${
+          this.projectName
+        }/restEndpoints/pages.yaml`
+      ),
+      { restVersion: this.restVersion }
+    );
+  }
+
+  install() {
     this.spawnCommandSync("docker-compose", ["build", "magnolia"]);
   }
 };

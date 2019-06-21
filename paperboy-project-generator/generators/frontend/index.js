@@ -6,10 +6,11 @@ module.exports = class extends Generator {
     this.option("projectName", { type: String, required: true });
     this.option("paperboyUserPassword", { type: String, required: true });
     this.option("paperboyVersion", { type: String, required: true });
-
+    this.option("restVersion", { type: String, required: true });
     this.projectName = this.options.projectName;
     this.paperboyUserPassword = this.options.paperboyUserPassword;
     this.paperboyVersion = this.options.paperboyVersion;
+    this.restVersion = this.options.restVersion;
   }
 
   async promting() {
@@ -34,14 +35,19 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath("frontend/package.json.ejs"),
       this.destinationPath("frontend/package.json"),
-      { projectName: this.projectName, paperboyVersion: this.paperboyVersion }
+      {
+        projectName: this.projectName,
+        paperboyVersion: this.paperboyVersion,
+        restVersion: this.restVersion
+      }
     );
     this.fs.copyTpl(
       this.templatePath("frontend/src/createPagesJson.js.ejs"),
       this.destinationPath("frontend/src/createPagesJson.js"),
       {
         projectName: this.projectName,
-        paperboyUserPassword: this.paperboyUserPassword
+        paperboyUserPassword: this.paperboyUserPassword,
+        restVersion: this.restVersion
       }
     );
   }

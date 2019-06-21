@@ -27,6 +27,13 @@ module.exports = class extends Generator {
         default: version
       },
       {
+        type: "list",
+        name: "restVersion",
+        message: "Enter the Magnolia REST delivery endpoint version",
+        choices: ["1", "2"],
+        default: "2"
+      },
+      {
         type: "confirm",
         name: "createMagnolia",
         message: "Create a magnolia backend?",
@@ -46,7 +53,9 @@ module.exports = class extends Generator {
     if (this.answers.createMagnolia) {
       this.composeWith(require.resolve("../magnolia"), {
         projectName: this.answers.projectName,
-        projectTitle: this.answers.projectTitle
+        projectTitle: this.answers.projectTitle,
+        paperboyVersion: this.answers.paperboyVersion,
+        restVersion: this.answers.restVersion
       });
     }
 
@@ -54,7 +63,8 @@ module.exports = class extends Generator {
       this.composeWith(require.resolve("../frontend"), {
         projectName: this.answers.projectName,
         paperboyUserPassword: this.paperboyUserPassword,
-        paperboyVersion: this.answers.paperboyVersion
+        paperboyVersion: this.answers.paperboyVersion,
+        restVersion: this.answers.restVersion
       });
     }
   }

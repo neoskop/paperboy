@@ -1,4 +1,7 @@
+<% if (restVersion === '1') { %>
 const generate = require("@neoskop/magnolia-headless-tools").generate;
+<% } %>
+
 
 const magnoliaConfigs = {
   ["local"]: {
@@ -12,6 +15,9 @@ const magnoliaConfigs = {
 };
 
 const createPagesJson = async () => {
+<% if (restVersion === '2') { %>
+  // add code to access /.rest/pages
+<% } else { %>
   await generate({
     name: "magnolia",
     magnolia: {
@@ -50,6 +56,7 @@ const createPagesJson = async () => {
       ]
     }
   });
+<% } %>
 };
 
 createPagesJson();

@@ -1,0 +1,38 @@
+<% if (restVersion === '2') { %>
+class: info.magnolia.rest.delivery.jcr.v2.JcrDeliveryEndpointDefinition
+workspace: website
+limit: 25
+depth: 2
+includeSystemProperties: false
+nodeTypes:
+  - mgnl:page
+childNodeTypes:
+  - mgnl:area
+  - mgnl:component
+#references
+<% } else { %>
+class: info.magnolia.rest.delivery.jcr.v1.JcrDeliveryEndpointDefinition
+params:
+  website:
+    workspace: website
+    depth: -1
+    limit: -1
+    rootPath: /
+    includeSystemProperties: true
+    nodeTypes:
+      - mgnl:page
+    childNodeTypes:
+      - mgnl:area
+      - mgnl:component
+  dam:
+    depth: -1
+    limit: -1
+    rootPath: /
+    includeSystemProperties: true
+    nodeTypes:
+      - mgnl:folder
+      - mgnl:asset
+    childNodeTypes:
+      - mgnl:folder
+      - mgnl:asset
+<% } %>

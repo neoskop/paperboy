@@ -23,7 +23,9 @@
     "react-static-plugin-source-filesystem": "7.0.0"
   },
   "devDependencies": {
+<% if (restVersion === '1') { %>
     "@neoskop/magnolia-headless-tools": "0.0.6",
+<% } %>
     "@neoskop/paperboy-cli": "<%= paperboyVersion %>",
     "@neoskop/s3surgeon": "0.1.2",
     "babel-eslint": "9.x",

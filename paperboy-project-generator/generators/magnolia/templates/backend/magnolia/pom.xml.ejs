@@ -11,7 +11,8 @@
     <javaVersion>1.<%= javaVersion %></javaVersion>
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     <mysql-connector-java.version>5.1.47</mysql-connector-java.version>
-    <paperboy.version>2.0.1</paperboy.version>
+    <paperboy.version><%= paperboyVersion %></paperboy.version>
+    <magnolia-rest.version><%= restVersion === '2' ? '2.1.1' : '2.0' %></magnolia-rest.version>
   </properties>
   <dependencyManagement>
     <dependencies>

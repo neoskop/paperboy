@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>de.neoskop.magnolia</groupId>
@@ -11,7 +15,7 @@
   <name><%= projectTitle %> Webapp</name>
   <packaging>war</packaging>
   <dependencies>
-  <% if (enterpriseEdition) { %>
+    <% if (enterpriseEdition) { %>
     <dependency>
       <groupId>info.magnolia.eebundle</groupId>
       <artifactId>magnolia-enterprise-pro-webapp</artifactId>
@@ -32,22 +36,6 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-empty-webapp</artifactId>
       <type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.rest</groupId>
-      <artifactId>magnolia-rest-services</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.rest</groupId>
-      <artifactId>magnolia-rest-integration</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.rest</groupId>
-      <artifactId>magnolia-rest-content-delivery</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.rest</groupId>
-      <artifactId>magnolia-rest-tools</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.imaging</groupId>
@@ -86,6 +74,26 @@
       <artifactId>magnolia-site-app</artifactId>
     </dependency>
     <% } %>
+    <dependency>
+      <groupId>info.magnolia.rest</groupId>
+      <artifactId>magnolia-rest-services</artifactId>
+      <version>${magnolia-rest.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.rest</groupId>
+      <artifactId>magnolia-rest-integration</artifactId>
+      <version>${magnolia-rest.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.rest</groupId>
+      <artifactId>magnolia-rest-content-delivery</artifactId>
+      <version>${magnolia-rest.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.rest</groupId>
+      <artifactId>magnolia-rest-tools</artifactId>
+      <version>${magnolia-rest.version}</version>
+    </dependency>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
