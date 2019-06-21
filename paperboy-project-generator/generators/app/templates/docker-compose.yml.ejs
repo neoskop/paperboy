@@ -30,7 +30,7 @@ services:
       PAPERBOY_USER_PASSWORD: '<%= paperboyUserPassword %>'
       PAPERBOY_WEBHOOK_URL: 'http://push-service:8080/'
       PAPERBOY_WEBHOOK_BEARER_TOKEN: '<%= apiToken %>'
-      PAPERBOY_AUTHORIZATION: 'BEARER_TOKEN'
+      PAPERBOY_WEBHOOK_AUTHORIZATION: 'BEARER_TOKEN'
     ports:
       - '8080:8080'
       - '5005:5005'
