@@ -1,5 +1,6 @@
 const Generator = require("yeoman-generator");
 const crypto = require("crypto");
+const path = require("path");
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -129,7 +130,10 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.spawnCommandSync("mgnl", [
+    const pathToCLI = `${path.dirname(
+      require.resolve("@magnolia/cli/package.json")
+    )}/bin/mgnl.js`;
+    this.spawnCommandSync(pathToCLI, [
       "create-light-module",
       "-f",
       "-p",
