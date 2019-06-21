@@ -13,7 +13,7 @@ export class Paperboy {
     const operation = retry.operation({ forever: true });
     await operation.attempt(async () => {
       try {
-        return new Promise((resolve, reject) => {
+        await new Promise((resolve, reject) => {
           const returnValue = shelljs.exec(this.options.command);
 
           if (returnValue.code === 0) {
