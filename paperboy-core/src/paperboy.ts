@@ -14,12 +14,12 @@ export class Paperboy {
     await operation.attempt(async () => {
       try {
         await new Promise((resolve, reject) => {
-          const returnValue = shelljs.exec(this.options.command);
+          const { code } = shelljs.exec(this.options.command);
 
-          if (returnValue.code === 0) {
-            resolve(returnValue);
+          if (code === 0) {
+            resolve();
           } else {
-            reject(returnValue.code);
+            reject(code);
           }
         });
       } catch (error) {
