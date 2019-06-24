@@ -10,7 +10,11 @@ export class Paperboy {
   constructor(private readonly options: PaperboyOptions) {}
 
   public async build(): Promise<void> {
-    const operation = retry.operation({ forever: true });
+    const operation = retry.operation({
+      forever: true,
+      minTimeout: 1000,
+      maxTimeout: 60 * 1000
+    });
     await operation.attempt(async () => {
       try {
         await new Promise((resolve, reject) => {
