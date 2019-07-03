@@ -17,7 +17,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@godaddy/terminus": "4.1.2",
@@ -35,7 +37,8 @@
     "retry": "0.12.0",
     "rimraf": "2.6.3",
     "rxjs": "6.5.2",
-    "ts-nats": "^1.2.4"
+    "ts-nats": "^1.2.4",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@nestjs/testing": "6.3.1",
@@ -71,5 +74,6 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "snyk": true
 }
