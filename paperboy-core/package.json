@@ -16,7 +16,9 @@
     "build": "rimraf dist && tsc -p tsconfig.json",
     "lint": "tslint -p tslint.json",
     "start": "yarn build && node dist/test",
-    "test": "nyc mocha --require ts-node/register --require source-map-support/register --recursive src/**/*.spec.ts"
+    "test": "nyc mocha --require ts-node/register --require source-map-support/register --recursive src/**/*.spec.ts",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "nyc": {
     "extension": [
@@ -60,6 +62,8 @@
     "retry": "0.12.0",
     "shelljs": "0.8.3",
     "ts-nats": "1.2.4",
-    "winston": "3.2.1"
-  }
+    "winston": "3.2.1",
+    "snyk": "^1.189.0"
+  },
+  "snyk": true
 }
