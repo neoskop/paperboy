@@ -20,7 +20,7 @@ public class PaperboyModule {
   }
 
   private String normalize(String url) {
-    return url.replaceAll("/$", "");
+    return StringUtils.isBlank(url) ? url : url.replaceAll("/$", "");
   }
 
   public void setPreviewUrl(String previewUrl) {
