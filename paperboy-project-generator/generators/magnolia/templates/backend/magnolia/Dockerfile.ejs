@@ -1,5 +1,5 @@
-FROM maven:3.6.1-jdk-<%= javaVersion %>
-COPY --from=neoskop/mgnl-deps:6.0 /root/.m2 /root/.m2
+FROM maven:3.6.1-jdk-13
+COPY --from=neoskop/mgnl-deps:6.1 /root/.m2 /root/.m2
 <% if (enterpriseEdition || maintenanceReleases) { %>
 RUN echo "<settings><servers><server><id><% if (enterpriseEdition) { %>magnolia.enterprise.releases<% } else { %>magnolia.public.maintenance.releases<% } %></id><username><%= enterpriseEditionUsername %></username><password><%= enterpriseEditionPassword %></password></server></servers></settings>" > /mvn-settings.xml
 <% } else { %>
