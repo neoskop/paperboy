@@ -21,12 +21,12 @@
   },
   "dependencies": {
     "@godaddy/terminus": "4.1.2",
-    "@hapi/joi": "15.0.3",
-    "@nestjs/common": "6.3.1",
-    "@nestjs/core": "6.3.1",
+    "@hapi/joi": "15.1.0",
+    "@nestjs/common": "6.4.1",
+    "@nestjs/core": "6.4.1",
     "@nestjs/passport": "6.1.0",
-    "@nestjs/platform-express": "6.3.1",
-    "@nestjs/terminus": "6.3.3",
+    "@nestjs/platform-express": "6.4.1",
+    "@nestjs/terminus": "6.4.0",
     "amqplib": "0.5.3",
     "dotenv": "8.0.0",
     "passport": "0.4.0",
@@ -38,16 +38,16 @@
     "ts-nats": "^1.2.4"
   },
   "devDependencies": {
-    "@nestjs/testing": "6.3.1",
-    "@types/amqplib": "0.5.12",
+    "@nestjs/testing": "6.4.1",
+    "@types/amqplib": "0.5.13",
     "@types/async-lock": "1.1.1",
     "@types/dotenv": "6.1.1",
     "@types/express": "4.17.0",
     "@types/jest": "24.0.15",
     "@types/joi": "14.3.3",
-    "@types/node": "12.0.8",
+    "@types/node": "12.6.1",
     "@types/retry": "0.12.0",
-    "@types/supertest": "2.0.7",
+    "@types/supertest": "2.0.8",
     "jest": "24.8.0",
     "nodemon": "1.19.1",
     "prettier": "1.18.2",
@@ -55,8 +55,8 @@
     "ts-jest": "24.0.2",
     "ts-node": "8.3.0",
     "tsconfig-paths": "3.8.0",
-    "tslint": "5.17.0",
-    "typescript": "3.5.2"
+    "tslint": "5.18.0",
+    "typescript": "3.5.3"
   },
   "jest": {
     "moduleFileExtensions": [
