@@ -17,13 +17,15 @@
   <dependencies>
     <% if (enterpriseEdition) { %>
     <dependency>
-      <groupId>info.magnolia.eebundle</groupId>
-      <artifactId>magnolia-enterprise-pro-webapp</artifactId>
+      <groupId>info.magnolia.dx</groupId>
+      <artifactId>magnolia-dx-core-webapp</artifactId>
+      <version>${magnoliaBundleVersion}</version>
       <type>war</type>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.eebundle</groupId>
-      <artifactId>magnolia-enterprise-pro-webapp</artifactId>
+      <groupId>info.magnolia.dx</groupId>
+      <artifactId>magnolia-dx-core-webapp</artifactId>
+      <version>${magnoliaBundleVersion}</version>
       <type>pom</type>
     </dependency>
     <% } else { %>
