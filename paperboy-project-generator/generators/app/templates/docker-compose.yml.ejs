@@ -9,8 +9,6 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       TZ: 'Europe/Berlin'
       MYSQL_DATABASE: '<%= projectName %>_author'
-    volumes:
-      - ./data:/var/lib/mysql
 <% if (createMagnolia) { %>
   magnolia:
     build: backend/magnolia
