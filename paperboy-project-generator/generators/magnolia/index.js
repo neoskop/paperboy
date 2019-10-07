@@ -51,11 +51,20 @@ module.exports = class extends Generator {
         }
       },
       {
+        type: "confirm",
+        name: "enableActivationWorkflow",
+        message: "Enable the activation workflow?",
+        default: false,
+        when: response => {
+          return response.enterpriseEdition;
+        }
+      },
+      {
         type: "list",
         name: "javaVersion",
         message: "Which Java version should Magnolia use?",
-        choices: ["8", "11"],
-        default: "11"
+        choices: ["8", "11", "13"],
+        default: "13"
       }
     ]);
   }
@@ -133,11 +142,13 @@ module.exports = class extends Generator {
       ),
       this.answers
     );
+  }
 
+  async install() {
     const pathToCLI = `${path.dirname(
       require.resolve("@magnolia/cli/package.json")
     )}/bin/mgnl.js`;
-    this.spawnCommandSync(pathToCLI, [
+    await this.spawnCommandSync(pathToCLI, [
       "create-light-module",
       "-f",
       "-p",
@@ -148,15 +159,12 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath("pages.yaml.ejs"),
       this.destinationPath(
-        `backend/magnolia/light-modules/${
-          this.projectName
-        }/restEndpoints/pages.yaml`
+        `backend/magnolia/light-modules/${this.projectName}/restEndpoints/pages.yaml`
       ),
       { restVersion: this.restVersion }
     );
-  }
-
-  install() {
-    this.spawnCommandSync("docker-compose", ["build", "magnolia"]);
+    this.fs.commit([], () => {
+      this.spawnCommandSync("docker-compose", ["build", "magnolia"]);
+    });
   }
 };
