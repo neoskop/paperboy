@@ -2,24 +2,24 @@
 # yarn lockfile v1
 
 
-"@neoskop/paperboy@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@neoskop/paperboy/-/paperboy-2.3.0.tgz#30e78bd613dbba65928b8bceb6a0a2058e70bfb1"
-  integrity sha512-6Q+dntYw2aQv0/S/uuLTcBRkegVCu6ONbRJFIqlJ6apCPGAgJsqy2tyk89L8WQHBlAL1LS6yAj2CiSKLDUzPlw==
+"@neoskop/paperboy@2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@neoskop/paperboy/-/paperboy-2.3.1.tgz#92c1e4e0b98f5549908b3069a8aea2bd1aba5591"
+  integrity sha512-TSQa6OOcbwB2N/GQzfMyN3wv3+XxW+nYraKUw1FK48lhEgU8PLIrj/yxY+iFg0yRyAMjrKW+UrmbEQp4ZgQYpA==
   dependencies:
-    "@types/amqplib" "0.5.12"
+    "@types/amqplib" "0.5.13"
     "@types/async-lock" "1.1.1"
-    amqplib "0.5.3"
-    async-lock "1.2.0"
+    amqplib "0.5.5"
+    async-lock "1.2.2"
     retry "0.12.0"
     shelljs "0.8.3"
     ts-nats "1.2.4"
     winston "3.2.1"
 
-"@types/amqplib@0.5.12":
-  version "0.5.12"
-  resolved "https://registry.yarnpkg.com/@types/amqplib/-/amqplib-0.5.12.tgz#d804e8020a8aecb01503f6c9445ff92fb4311bd2"
-  integrity sha512-SZL0WpRqznwnMXvGUDrpI1hlss5MlCSbAsRQpdp/V1YmKGDglzxENucvUQlz3UYR+hT5IyhovGurfEGRwzzI4g==
+"@types/amqplib@0.5.13":
+  version "0.5.13"
+  resolved "https://registry.yarnpkg.com/@types/amqplib/-/amqplib-0.5.13.tgz#a0dc9be08f38b91e5f7532acf0c89b0e515cdc6c"
+  integrity sha512-0r8cJfUajAlcHxlJsZyqRrSAYzv+pJPsaAQjDC6e5rACi3AOIuR0AfevJG7NLvw3Qu4EGhf3KS/ECwd5cUAY2A==
   dependencies:
     "@types/bluebird" "*"
     "@types/node" "*"
@@ -39,10 +39,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.8.tgz#551466be11b2adc3f3d47156758f610bd9f6b1d8"
   integrity sha512-b8bbUOTwzIY3V5vDTY1fIJ+ePKDUBqt2hC2woVGotdQQhG/2Sh62HOKHrT7ab+VerXAcPyAiTEipPu/FsreUtg==
 
-amqplib@0.5.3:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/amqplib/-/amqplib-0.5.3.tgz#7ccfc85d12ee7cd3c6dc861bb07f0648ec3d7193"
-  integrity sha512-ZOdUhMxcF+u62rPI+hMtU1NBXSDFQ3eCJJrenamtdQ7YYwh7RZJHOIM1gonVbZ5PyVdYH4xqBPje9OYqk7fnqw==
+amqplib@0.5.5:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/amqplib/-/amqplib-0.5.5.tgz#698f0cb577e0591954a90572fcb3b8998a76fd40"
+  integrity sha512-sWx1hbfHbyKMw6bXOK2k6+lHL8TESWxjAx5hG8fBtT7wcxoXNIsFxZMnFyBjxt3yL14vn7WqBDe5U6BGOadtLg==
   dependencies:
     bitsyntax "~0.1.0"
     bluebird "^3.5.2"
@@ -70,10 +70,10 @@ ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-async-lock@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/async-lock/-/async-lock-1.2.0.tgz#cd6a53cb1ec3f86af25eafdeb6bc7c6e317258b8"
-  integrity sha512-81HzTQm4+qMj6PwNlnR+y9g7pDdGGzd/YBUrQnHk+BhR28ja2qv497NkQQc1KcKEqh/RShm07di2b0cIWVFrNQ==
+async-lock@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/async-lock/-/async-lock-1.2.2.tgz#480bd51e4b7ffd4debbd4973763718ec9acb9a9e"
+  integrity sha512-uczz62z2fMWOFbyo6rG4NlV2SdxugJT6sZA2QcfB1XaSjEiOh8CuOb/TttyMnYQCda6nkWecJe465tGQDPJiKw==
 
 async@^2.6.1:
   version "2.6.2"
