@@ -2,7 +2,7 @@ FROM node:12.13.0-buster-slim AS build
 RUN apt-get update && \
     apt-get install -y build-essential
 WORKDIR /home/node/app
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .snyk ./
 RUN yarn
 COPY --chown=node . ./
 

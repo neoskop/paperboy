@@ -10,13 +10,15 @@
   "homepage": "https://neolabs.io",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=8.12.0"
+    "node": ">=12.7.0"
   },
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.json",
     "lint": "tslint -p tslint.json",
     "start": "yarn build && node dist/test",
-    "test": "nyc mocha --require ts-node/register --require source-map-support/register --recursive src/**/*.spec.ts"
+    "test": "nyc mocha --require ts-node/register --require source-map-support/register --recursive src/**/*.spec.ts",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "nyc": {
     "extension": [
@@ -50,7 +52,9 @@
     "source-map-support": "0.5.16",
     "ts-node": "8.4.1",
     "tslint": "5.20.0",
-    "typescript": "3.6.4"
+    "typescript": "3.6.4",
+    "ts-nats": "1.2.4",
+    "snyk": "1.242.0"
   },
   "dependencies": {
     "@types/amqplib": "0.5.13",
@@ -61,5 +65,6 @@
     "shelljs": "0.8.3",
     "ts-nats": "1.2.4",
     "winston": "3.2.1"
-  }
+  },
+  "snyk": true
 }

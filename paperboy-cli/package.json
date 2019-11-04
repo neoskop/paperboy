@@ -10,16 +10,22 @@
     "paperboy": "./paperboy-cli.js",
     "paperboy.sh": "./paperboy-cli.js"
   },
-  "scripts": {},
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
   "author": "Neoskop GmbH",
   "dependencies": {
     "@neoskop/paperboy": "2.3.1",
     "chalk": "2.4.2",
     "commander": "4.0.0",
-    "inquirer": "7.0.0"
+    "inquirer": "7.0.0",
+    "ts-nats": "1.2.4",
+    "snyk": "1.242.0"
   },
   "engines": {
-    "node": ">=8.12.0"
+    "node": ">=12.7.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "snyk": true
 }
