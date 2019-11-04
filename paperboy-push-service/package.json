@@ -38,7 +38,7 @@
     "rimraf": "3.0.0",
     "rxjs": "6.5.3",
     "ts-nats": "1.2.4",
-    "snyk": "1.242.0"
+    "snyk": "^1.242.0"
   },
   "devDependencies": {
     "@nestjs/testing": "6.9.0",
