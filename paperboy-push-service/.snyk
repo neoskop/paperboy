@@ -5,4 +5,6 @@ ignore: {}
 patch:
   SNYK-JS-LODASH-450202:
     - '@nestjs/terminus > mongoose > async > lodash':
-        patched: '2019-11-04T14:58:12.171Z'
+        patched: '2019-11-04T15:25:10.896Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        patched: '2019-11-04T15:25:10.896Z'
