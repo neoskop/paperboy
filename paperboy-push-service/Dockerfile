@@ -1,20 +1,18 @@
-FROM node:10.15.3-alpine AS node-with-yarn
-RUN apk add yarn tzdata --no-cache
-
-FROM node-with-yarn AS build
-RUN apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make
+FROM node:12.13.0-buster-slim AS build
+RUN apt-get update && \
+    apt-get install -y build-essential
 WORKDIR /home/node/app
 COPY package.json yarn.lock ./
 RUN yarn
 COPY --chown=node . ./
 
-FROM node-with-yarn as development
+FROM node:12.13.0-buster-slim as development
 USER node
 WORKDIR /home/node/app
 COPY --from=build --chown=node /home/node/app ./
 CMD yarn start:dev
 
-FROM node-with-yarn as production
+FROM node:12.13.0-buster-slim as production
 USER node
 RUN mkdir -p /home/node/app
 WORKDIR /home/node/app

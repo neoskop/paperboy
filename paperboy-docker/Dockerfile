@@ -1,4 +1,4 @@
-FROM node:10.6.0
+FROM node:12.13.0-buster-slim
 
 ENV ENV PAPERBOY_VERSION 1.1.2
 

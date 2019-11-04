@@ -24,7 +24,7 @@ export class ConfigService {
   private validateInput(envConfig: EnvConfig): EnvConfig {
     const envVarsSchema: Joi.ObjectSchema = Joi.object({
       NODE_ENV: Joi.string()
-        .valid(['development', 'production', 'test', 'provision'])
+        .valid('development', 'production', 'test', 'provision')
         .default('development'),
       API_TOKEN: Joi.string().required(),
       TIME_WINDOW: Joi.number().default(60),
@@ -36,16 +36,15 @@ export class ConfigService {
           }
 
           return 'RABBITMQ';
-        }, 'Derives the type from the queue URI and defaults to RabbitMQ'),
+        }),
       QUEUE_URI: Joi.string().required(),
       QUEUE_EXCHANGE: Joi.string().default('paperboy'),
       QUEUE_SOURCE: Joi.string().default('push-notifier'),
       QUEUE_MESSAGE_EXPIRATION: Joi.number().default(10),
     });
 
-    const { error, value: validatedEnvConfig } = Joi.validate(
+    const { error, value: validatedEnvConfig } = envVarsSchema.validate(
       envConfig,
-      envVarsSchema,
     );
     if (error) {
       throw new Error(`Config validation error: ${error.message}`);
