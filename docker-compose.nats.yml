@@ -1,19 +1,21 @@
-version: '3.4'
+version: "3.4"
 services:
   queue:
     image: nats:1.4.1-linux
     hostname: paperboy_queue
   frontend:
     build: paperboy-core
-    environment: 
+    environment:
       QUEUE_URI: nats://queue:4222
+    ports:
+      - "4222:4222"
   push-service:
     build:
       context: paperboy-push-service
       target: development
     ports:
       - "8080:8080"
-    environment: 
+    environment:
       CONFIG: nats
     depends_on:
       - queue
