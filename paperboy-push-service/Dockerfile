@@ -16,7 +16,7 @@ FROM node:12.13.0-buster-slim as production
 USER node
 RUN mkdir -p /home/node/app
 WORKDIR /home/node/app
-COPY --from=build --chown=node /home/node/app/*.json /home/node/app/yarn.lock ./
+COPY --from=build --chown=node /home/node/app/*.json /home/node/app/yarn.lock /home/node/app/.snyk ./
 RUN yarn --only=production && \
     yarn cache clean --force >/dev/null 2>&1
 COPY src ./src
