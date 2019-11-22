@@ -15,25 +15,31 @@ export class Paperboy {
       minTimeout: 1000,
       maxTimeout: 60 * 1000
     });
-    await operation.attempt(async () => {
-      try {
-        await new Promise((resolve, reject) => {
-          const { code } = shelljs.exec(this.options.command);
+    await new Promise(done => {
+      operation.attempt(async () => {
+        try {
+          await new Promise((resolve, reject) => {
+            const buildProcess = shelljs.exec(this.options.command, {
+              async: true
+            });
+            buildProcess.on('exit', (code: number) => {
+              if (code === 0) {
+                resolve();
+              } else {
+                reject(code);
+              }
+            });
+          });
+          done();
+        } catch (error) {
+          logger.error(`Build process failed with exit code: ${error}`);
 
-          if (code === 0) {
-            resolve();
-          } else {
-            reject(code);
+          if (operation.retry(error)) {
+            logger.warn('Retrying build...');
+            return;
           }
-        });
-      } catch (error) {
-        logger.error(`Build process failed with exit code: ${error}`);
-
-        if (operation.retry(error)) {
-          logger.warn('Retrying build...');
-          return;
         }
-      }
+      });
     });
   }
 
