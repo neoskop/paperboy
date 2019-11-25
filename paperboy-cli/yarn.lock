@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@neoskop/paperboy@2.3.2":
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/@neoskop/paperboy/-/paperboy-2.3.2.tgz#6c66e0b3494014ef2dd6683d17d639177739ee4f"
-  integrity sha512-lds3/GM8rmTC4keKOWrE8zhAzkAX6NLE+pch+xLnoZrh4Rhou5jA7IctCsI2CwBfoROR0uWL2GJ2rmOgOgca5g==
+"@neoskop/paperboy@2.3.3":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@neoskop/paperboy/-/paperboy-2.3.3.tgz#7c43abf76be9e5f9849963710f5628fc4843d8b6"
+  integrity sha512-gOlJVM2jS8jyNpoEjVWUuNxMCwIWmODckG+nurOCLC0VdydtNshnha/gFFGA4H/pBS4MltdDGr8TcrZ8t4nuKQ==
   dependencies:
     "@types/amqplib" "0.5.13"
     "@types/async-lock" "1.1.1"
