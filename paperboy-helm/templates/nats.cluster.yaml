@@ -1,0 +1,11 @@
+{{- if .Values.nats.createCluster -}}
+apiVersion: "nats.io/v1alpha2"
+kind: "NatsCluster"
+metadata:
+  name: {{ include "paperboy.name" . }}-queue
+  labels:
+{{ include "paperboy.labels" . | indent 4 }}
+spec:
+  size: {{ .Values.nats.size }}
+  version: "{{ .Values.nats.version }}"
+{{- end }}

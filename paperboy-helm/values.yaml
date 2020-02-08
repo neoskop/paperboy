@@ -1,0 +1,27 @@
+image:
+  repository: neoskop/paperboy-push-service
+  tag: 2.3.3
+  pullPolicy: IfNotPresent
+resources:
+  requests:
+    cpu: '0.1'
+    memory: 50Mi
+  limits:
+    cpu: '0.1'
+    memory: 100Mi
+replicaCount: 2
+pushService:
+  token: ""
+previewPushService:
+  enabled: true
+  token: ""
+nats:
+  createCluster: true
+  url: null
+  size: 3
+  version: 2.1.4
+nameOverride: ""
+fullnameOverride: ""
+nodeSelector: {}
+tolerations: []
+affinity: {}

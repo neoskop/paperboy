@@ -1,0 +1,11 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "paperboy.pushService.name" . }}
+  labels:
+{{ include "paperboy.labels" . | indent 4 }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "paperboy.pushService.name" . }}
