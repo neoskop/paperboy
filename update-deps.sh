@@ -74,6 +74,7 @@ echo "  - NATS: $(bold $NATS_LATEST_TAG)"
 RABBITMQ_LATEST_TAG=$(get_tags library/rabbitmq | grep '^[0-9]*\.[0-9]*\.[0-9]*-management$' | sort -V | tail -n 1)
 echo "  - RabbitMQ: $(bold $RABBITMQ_LATEST_TAG)"
 sed -i "1 s/^.*$/FROM node:$NODE_LATEST_TAG as base/" paperboy-docker/Dockerfile
+sed -i "1 s/^.*$/FROM node:$NODE_LATEST_TAG as base/" paperboy-core/Dockerfile
 yq w -i docker-compose.nats.yml services.queue.image nats:$NATS_LATEST_TAG
 yq w -i docker-compose.rabbitmq.yml services.queue.image rabbitmq:$RABBITMQ_LATEST_TAG
 yq w -i paperboy-helm/values.yaml nats.version $NATS_LATEST_VERSION
