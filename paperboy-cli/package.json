@@ -18,9 +18,9 @@
   "dependencies": {
     "@neoskop/paperboy": "2.3.3",
     "chalk": "3.0.0",
-    "commander": "4.0.1",
-    "inquirer": "7.0.0",
-    "snyk": "1.250.0",
+    "commander": "4.1.1",
+    "inquirer": "7.0.4",
+    "snyk": "1.290.2",
     "ts-nats": "1.2.4"
   },
   "engines": {

@@ -8,17 +8,17 @@ services:
     environment:
       QUEUE_URI: nats://queue:4222
     ports:
-      - "4222:4222"
+    - "4222:4222"
   push-service:
     build:
       context: paperboy-push-service
       target: development
     ports:
-      - "8080:8080"
+    - "8080:8080"
     environment:
       CONFIG: nats
     depends_on:
-      - queue
+    - queue
     volumes:
-      - ./paperboy-push-service/src:/home/node/app/src:ro,consistent
-      - ./paperboy-push-service/config:/home/node/app/config:ro,consistent
+    - ./paperboy-push-service/src:/home/node/app/src:ro,consistent
+    - ./paperboy-push-service/config:/home/node/app/config:ro,consistent
