@@ -44,7 +44,7 @@ mvn versions:set -DnewVersion=${version} -DgenerateBackupPoms=false
 mvn deploy
 
 cd ../paperboy-docker
-sed -i "s/ENV PAPERBOY_VERSION=[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+/ENV PAPERBOY_VERSION=$version/" paperboy-docker/Dockerfile
+sed -i "s/ENV PAPERBOY_VERSION=[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+/ENV PAPERBOY_VERSION=$version/" Dockerfile
 
 cd ../paperboy-cli
 cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperboy\" = \"$version\"" >package.json.new
@@ -79,7 +79,7 @@ git push origin $version
 git pull --rebase
 git push
 
-helm package helm --destination .deploy
+helm package paperboy-helm --destination .deploy
 cr upload -o neoskop -r paperboy -p .deploy
 git checkout gh-pages
 cr index -i ./index.yaml -p .deploy -o neoskop -r paperboy -c https://neoskop.github.io/paperboy/
