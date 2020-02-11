@@ -43,9 +43,6 @@ cd ../paperboy-magnolia-module
 mvn versions:set -DnewVersion=${version} -DgenerateBackupPoms=false
 mvn deploy
 
-cd ../paperboy-docker
-sed -i "s/ENV PAPERBOY_VERSION=[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+/ENV PAPERBOY_VERSION=$version/" Dockerfile
-
 cd ../paperboy-cli
 cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperboy\" = \"$version\"" >package.json.new
 mv package.json.new package.json
@@ -65,6 +62,13 @@ docker build -t neoskop/paperboy-push-service:$version .
 docker build -t neoskop/paperboy-push-service:latest .
 docker push neoskop/paperboy-push-service:$version
 docker push neoskop/paperboy-push-service:latest
+
+cd ../paperboy-docker
+sed -i "s/ENV PAPERBOY_VERSION=[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+/ENV PAPERBOY_VERSION=$version/" Dockerfile
+docker build -t neoskop/paperboy:$version .
+docker build -t neoskop/paperboy:latest .
+docker push neoskop/paperboy:$version
+docker push neoskop/paperboy:latest
 
 cd ../paperboy-helm
 yq w -i ./Chart.yaml version $version
