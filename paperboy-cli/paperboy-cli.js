@@ -36,6 +36,7 @@ function setupPaperboy(program, configModifier) {
 
   const paperboy = new Paperboy({
     readinessHook: config.readinessHook,
+    initialCommand: config.initialCommand,
     command: config.command,
     queue: config.queue
   });
