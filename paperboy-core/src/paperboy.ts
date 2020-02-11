@@ -9,7 +9,7 @@ import { RabbitMQService } from './service/rabbitmq.service';
 export class Paperboy {
   constructor(private readonly options: PaperboyOptions) {}
 
-  public async build(): Promise<void> {
+  public async build(buildCommand?: string): Promise<void> {
     const operation = retry.operation({
       forever: true,
       minTimeout: 1000,
@@ -19,9 +19,12 @@ export class Paperboy {
       operation.attempt(async () => {
         try {
           await new Promise((resolve, reject) => {
-            const buildProcess = shelljs.exec(this.options.command, {
-              async: true
-            });
+            const buildProcess = shelljs.exec(
+              buildCommand || this.options.command,
+              {
+                async: true
+              }
+            );
             buildProcess.on('exit', (code: number) => {
               if (code === 0) {
                 resolve();
@@ -54,7 +57,7 @@ export class Paperboy {
     }
 
     // initial generation
-    await this.build();
+    await this.build(this.options.initialCommand);
 
     // Execute readiness hook if set
     if (this.options.readinessHook && 0 !== this.options.readinessHook.length) {

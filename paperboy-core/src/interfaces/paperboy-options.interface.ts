@@ -5,6 +5,9 @@ export interface PaperboyOptions {
   /** The command to execute to build the frontend */
   command: string;
 
+  /** If initialCommand is specified, use that when building the frontend the first time instead of using command */
+  initialCommand?: string;
+
   /** The configuration of the queue to which Paperboy listens */
   queue?: {
     uri: string;
