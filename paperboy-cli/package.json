@@ -1,6 +1,6 @@
 {
   "name": "@neoskop/paperboy-cli",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "",
   "repository": "https://github.com/neoskop/paperboy",
   "homepage": "https://neolabs.io",
@@ -16,7 +16,7 @@
   },
   "author": "Neoskop GmbH",
   "dependencies": {
-    "@neoskop/paperboy": "2.4.0",
+    "@neoskop/paperboy": "2.4.1",
     "chalk": "3.0.0",
     "commander": "4.1.1",
     "inquirer": "7.0.4",
