@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   queue:
-    image: rabbitmq:3.8.2-management
+    image: rabbitmq:3.8.3-management
     hostname: paperboy_queue
     environment:
       RABBITMQ_DEFAULT_USER: admin
