@@ -5,8 +5,8 @@ image:
 resources:
   requests:
     memory: 50Mi
+    cpu: 100m
   limits:
-    cpu: '0.1'
     memory: 100Mi
 replicaCount: 2
 pushService:
