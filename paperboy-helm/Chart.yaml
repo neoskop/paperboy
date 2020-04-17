@@ -2,5 +2,5 @@ apiVersion: v2
 name: paperboy
 description: A Helm chart to deploy the paperboy push service and optionally a queue
 type: application
-version: 2.5.0
-appVersion: 2.5.0
+version: 2.6.0
+appVersion: 2.6.0
