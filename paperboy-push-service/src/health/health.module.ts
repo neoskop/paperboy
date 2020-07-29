@@ -2,22 +2,14 @@ import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService, QueueType } from '../config/config.service';
+import { HealthController } from './health.controller';
 import { NatsHealthIndicator } from './nats.health';
 import { QueueHealthIndicator } from './queue.health';
 import { RabbitMqHealthIndicator } from './rabbit-mq.health';
-import { TerminusOptionsService } from './terminus-options.service';
 
 @Module({
-  imports: [
-    ConfigModule,
-    TerminusModule.forRootAsync({
-      useClass: TerminusOptionsService,
-      imports: [HealthModule, ConfigModule],
-      inject: [QueueHealthIndicator, ConfigService],
-    }),
-  ],
+  imports: [ConfigModule, TerminusModule],
   providers: [
-    TerminusOptionsService,
     {
       provide: QueueHealthIndicator,
       useFactory: (configService: ConfigService) =>
@@ -27,6 +19,7 @@ import { TerminusOptionsService } from './terminus-options.service';
       inject: [ConfigService],
     },
   ],
-  exports: [QueueHealthIndicator, TerminusOptionsService],
+  exports: [QueueHealthIndicator],
+  controllers: [HealthController],
 })
 export class HealthModule {}

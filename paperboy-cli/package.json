@@ -17,11 +17,11 @@
   "author": "Neoskop GmbH",
   "dependencies": {
     "@neoskop/paperboy": "2.6.0",
-    "chalk": "4.0.0",
+    "chalk": "4.1.0",
     "commander": "5.0.0",
-    "inquirer": "7.1.0",
-    "snyk": "1.305.1",
-    "ts-nats": "1.2.12"
+    "inquirer": "7.3.3",
+    "snyk": "1.369.1",
+    "ts-nats": "1.2.15"
   },
   "engines": {
     "node": ">=12.7.0"
