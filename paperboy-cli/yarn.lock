@@ -18,10 +18,10 @@
     enabled "2.0.x"
     kuler "^2.0.0"
 
-"@neoskop/paperboy@2.6.1":
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/@neoskop/paperboy/-/paperboy-2.6.1.tgz#99fbe77c661bb2cd1fcfe09928470cf425e2b2dc"
-  integrity sha512-gqace4g5j7qrbvR1uSGsgiyp1d0YgF/VquaVd72oRLW6PlNwzEGESQ4uLJk9QnFZCijbbG7Nw82eUwaZcjrW7Q==
+"@neoskop/paperboy@2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@neoskop/paperboy/-/paperboy-2.6.2.tgz#b4aaf2cd00b7629c0f70822cc06b34ab9e492c1e"
+  integrity sha512-2p7dvf0oDJ2ZZVOS+aRuQt5Medkyta4hR7rbkuInzFDD5YFyrI/DjjLSaPOvxIlMnMOpM6XV9ohRvlE08LajbA==
   dependencies:
     "@types/amqplib" "0.5.13"
     "@types/async-lock" "1.1.2"

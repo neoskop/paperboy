@@ -70,9 +70,9 @@ docker push neoskop/paperboy:$version
 docker push neoskop/paperboy:latest
 
 cd ../paperboy-helm
-yq w -i ./Chart.yaml version $version
-yq w -i ./Chart.yaml appVersion $version
-yq w -i ./values.yaml image.tag $version
+yq eval -i ".version=\"$version\"" ./Chart.yaml
+yq eval -i ".appVersion=\"$version\"" ./Chart.yaml
+yq eval -i ".image.tag=\"$version\"" ./values.yaml
 
 cd ../
 git add .
