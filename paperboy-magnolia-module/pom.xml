@@ -169,9 +169,9 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
-      <id>bintray-neoskop-magnolia-modules</id>
-      <name>bintray</name>
-      <url>https://neoskop.bintray.com/magnolia-modules</url>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/neoskop/paperboy</url>
     </repository>
   </repositories>
 
