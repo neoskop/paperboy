@@ -36,9 +36,9 @@
 
   <distributionManagement>
     <repository>
-      <id>bintray-neoskop-magnolia-modules</id>
-      <name>neoskop-magnolia-modules</name>
-      <url>https://api.bintray.com/maven/neoskop/magnolia-modules/paperboy/;publish=1</url>
+        <id>github</id>
+        <name>GitHub Packages</name>
+        <url>https://maven.pkg.github.com/neoskop/paperboy</url>
     </repository>
   </distributionManagement>
 
