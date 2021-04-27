@@ -2,10 +2,27 @@ apiVersion: v1
 entries:
   paperboy:
   - apiVersion: v2
+    appVersion: 2.6.2
+    created: "2021-04-28T01:05:13.015925671+02:00"
+    description: A Helm chart to deploy the paperboy push service and optionally a queue
+    digest: d2d3d793fac2c90a0281e9cf5bfc50b77709e091068f82d467a64b8e826609d9
+    home: http://paperboy.sh
+    maintainers:
+    - email: diekmann@neoskop.de
+      name: Arne Diekmann
+      url: https://www.neoskop.de
+    name: paperboy
+    sources:
+    - https://github.com/neoskop/paperboy
+    - https://github.com/neoskop/paperboy/tree/master/paperboy-helm
+    type: application
+    urls:
+    - https://github.com/neoskop/paperboy/releases/download/paperboy-2.6.2/paperboy-2.6.2.tgz
+    version: 2.6.2
+  - apiVersion: v2
     appVersion: 2.6.1
     created: "2020-07-29T20:07:37.255804744+02:00"
-    description: A Helm chart to deploy the paperboy push service and optionally a
-      queue
+    description: A Helm chart to deploy the paperboy push service and optionally a queue
     digest: 46cb4e34b6c96823b964449bb9ff29aa675ead357ffd2e1c68af832382afa092
     home: http://paperboy.sh
     maintainers:
@@ -22,8 +39,7 @@ entries:
   - apiVersion: v2
     appVersion: 2.6.0
     created: "2020-04-17T10:40:03.462794042+02:00"
-    description: A Helm chart to deploy the paperboy push service and optionally a
-      queue
+    description: A Helm chart to deploy the paperboy push service and optionally a queue
     digest: 078905fadba556182925a71f7321478caecc7424da266c49b3228c76921b1b19
     name: paperboy
     urls:
@@ -32,8 +48,7 @@ entries:
   - apiVersion: v2
     appVersion: 2.5.0
     created: "2020-04-16T23:12:26.370102352+02:00"
-    description: A Helm chart to deploy the paperboy push service and optionally a
-      queue
+    description: A Helm chart to deploy the paperboy push service and optionally a queue
     digest: 8b742de5d22a717d899d15e873355019dbffce37dccb89537d7963f5aa162e82
     name: paperboy
     urls:
@@ -42,8 +57,7 @@ entries:
   - apiVersion: v2
     appVersion: 2.4.1
     created: "2020-02-11T16:52:30.930953797+01:00"
-    description: A Helm chart to deploy the paperboy push service and optionally a
-      queue
+    description: A Helm chart to deploy the paperboy push service and optionally a queue
     digest: dc925838d6bb853b2dd79941d0949468495c33858b2bc6fd2b879d60c3235b4a
     name: paperboy
     urls:
@@ -52,8 +66,7 @@ entries:
   - apiVersion: v2
     appVersion: 2.4.0
     created: "2020-02-11T14:18:28.206151949+01:00"
-    description: A Helm chart to deploy the paperboy push service and optionally a
-      queue
+    description: A Helm chart to deploy the paperboy push service and optionally a queue
     digest: 4aad25bfa7d0c10a3edb9e9e2186bae1c98eb11b19a213b0e91a7b7e2ae87bf4
     name: paperboy
     urls:
@@ -62,8 +75,7 @@ entries:
   - apiVersion: v2
     appVersion: 2.3.5
     created: "2020-02-09T18:16:18.177292132+01:00"
-    description: A Helm chart to deploy the paperboy push service and optionally a
-      queue
+    description: A Helm chart to deploy the paperboy push service and optionally a queue
     digest: 47ba462b86585a03eb4e2913667af3f97c5130fd79064513df300666bc2af8d4
     name: paperboy
     urls:
@@ -72,8 +84,7 @@ entries:
   - apiVersion: v2
     appVersion: 2.3.4
     created: "2020-02-09T16:42:30.966629278+01:00"
-    description: A Helm chart to deploy the paperboy push service and optionally a
-      queue
+    description: A Helm chart to deploy the paperboy push service and optionally a queue
     digest: 54382b1409fa4049ba467ef54c85a5cf7e45093b1ae7aec318669952a142be54
     name: paperboy
     urls:
