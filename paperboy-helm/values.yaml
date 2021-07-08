@@ -1,6 +1,6 @@
 image:
   repository: neoskop/paperboy-push-service
-  tag: 2.6.3
+  tag: 2.6.4
   pullPolicy: IfNotPresent
 resources:
   requests:
