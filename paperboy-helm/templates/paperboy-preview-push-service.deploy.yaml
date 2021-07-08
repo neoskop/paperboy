@@ -22,7 +22,7 @@ spec:
     spec:
       {{- if .Values.imagePullSecret }}
       imagePullSecrets: 
-      - name: {{ include "papergirl.pull-secret-name" . }}
+      - name: {{ include "paperboy.pull-secret-name" . }}
       {{- end }}
       affinity:
         podAntiAffinity:
