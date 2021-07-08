@@ -21,6 +21,7 @@ nats:
   version: 2.1.7
 nameOverride: ""
 fullnameOverride: ""
+imagePullSecret: {}
 nodeSelector: {}
 tolerations: []
 affinity: {}

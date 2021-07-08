@@ -86,3 +86,16 @@ Create the name of the service account to use
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Create a prefix for the pull secret
+*/}}
+{{- define "paperboy.pull-secret-name" -}}
+{{- include "paperboy.fullname" . }}-pull-secret
+{{- end -}}
+
+{{- define "imagePullSecret" }}
+{{- with .Values.imagePullSecret }}
+{{- printf "{\"auths\":{\"%s\":{\"username\":\"%s\",\"password\":\"%s\",\"email\":\"%s\",\"auth\":\"%s\"}}}" .registry .username .password .email (printf "%s:%s" .username .password | b64enc) | b64enc }}
+{{- end }}
+{{- end }}
