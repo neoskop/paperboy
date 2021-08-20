@@ -21,10 +21,6 @@
 
   <dependencies>
     <dependency>
-      <name>pages</name>
-      <version>5.6/*</version>
-    </dependency>
-    <dependency>
       <name>core</name>
       <version>5.6/*</version>
     </dependency>
