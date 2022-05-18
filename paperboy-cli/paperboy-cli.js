@@ -5,7 +5,7 @@ const fs = require("fs");
 const Paperboy = require("@neoskop/paperboy").Paperboy;
 const program = require("commander");
 
-program.version("2.0.1").description("Paperboy CLI");
+program.version("2.6.5").description("Paperboy CLI");
 
 program
   .description(
