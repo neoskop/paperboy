@@ -2,5 +2,4 @@ Dockerfile
 node_modules
 .vscode
 dist
-yarn-error.log
 README.md

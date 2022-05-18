@@ -19,8 +19,8 @@ module.exports = class extends Generator {
         type: "confirm",
         name: "useYarn",
         message: "Do you want to use Yarn instead of NPM?",
-        default: true
-      }
+        default: false,
+      },
     ]);
   }
 
@@ -29,7 +29,7 @@ module.exports = class extends Generator {
       this.templatePath("**/@(.*|*.{json,css,png,js,conf,txt}|Dockerfile)"),
       this.destinationRoot(),
       {
-        globOptions: { dot: true }
+        globOptions: { dot: true },
       }
     );
     this.fs.copyTpl(
@@ -38,7 +38,7 @@ module.exports = class extends Generator {
       {
         projectName: this.projectName,
         paperboyVersion: this.paperboyVersion,
-        restVersion: this.restVersion
+        restVersion: this.restVersion,
       }
     );
     this.fs.copyTpl(
@@ -47,7 +47,7 @@ module.exports = class extends Generator {
       {
         projectName: this.projectName,
         paperboyUserPassword: this.paperboyUserPassword,
-        restVersion: this.restVersion
+        restVersion: this.restVersion,
       }
     );
   }
@@ -55,11 +55,11 @@ module.exports = class extends Generator {
   install() {
     if (this.answers.useYarn) {
       this.spawnCommandSync("yarn", [], {
-        cwd: this.destinationPath("frontend")
+        cwd: this.destinationPath("frontend"),
       });
     } else {
       this.spawnCommandSync("npm", ["install"], {
-        cwd: this.destinationPath("frontend")
+        cwd: this.destinationPath("frontend"),
       });
     }
     this.spawnCommandSync("docker-compose", ["build", "frontend"]);

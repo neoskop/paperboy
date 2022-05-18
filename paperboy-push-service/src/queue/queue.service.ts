@@ -20,9 +20,7 @@ export abstract class QueueService {
       } else {
         this.locks[source].pendingMessage = message;
         Logger.log(
-          `The following message from ${source} will be sent in ${
-            this.configService.timeWindow
-          } seconds: ${body}`,
+          `The following message from ${source} will be sent in ${this.configService.timeWindow} seconds: ${body}`,
         );
       }
 
@@ -39,9 +37,7 @@ export abstract class QueueService {
 
         if (pendingMessage) {
           Logger.debug(
-            `Publishing delayed message in queue: ${
-              this.locks[source].pendingMessage
-            }`,
+            `Publishing delayed message in queue: ${this.locks[source].pendingMessage}`,
           );
           await this.publishMessage(this.locks[source].pendingMessage);
         }
@@ -58,9 +54,9 @@ export abstract class QueueService {
     }
   }
 
-  protected abstract async publishMessage(message: string): Promise<void>;
+  protected abstract publishMessage(message: string): Promise<void>;
 
-  protected abstract async connectToQueue(): Promise<void>;
+  protected abstract connectToQueue(): Promise<void>;
 
   protected getMessageJson(body: string, source: string): string {
     let message = {};

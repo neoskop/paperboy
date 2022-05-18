@@ -1,7 +1,7 @@
 FROM node:11.13.0-alpine AS dependencies
 WORKDIR /home/node/app
-COPY package.json yarn.lock ./
-RUN yarn
+COPY package*.json ./
+RUN npm i
 
 FROM node:11.13.0-alpine AS base
 RUN apk add --no-cache py-pip supervisor bash sed

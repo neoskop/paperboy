@@ -11,7 +11,6 @@ function check_command() {
 check_command mvn
 check_command jq
 check_command yq
-check_command yarn
 check_command npm
 check_command docker
 
@@ -28,13 +27,13 @@ fi
 git pull --rebase
 
 cd paperboy-project-generator
-yarn
+npm i
 npm version $1
 npm publish
 
 cd ../paperboy-core
-yarn
-yarn build
+npm i
+npm run build
 npm version $1
 version=$(cat package.json | jq -r .version)
 npm publish
@@ -45,7 +44,7 @@ mvn versions:set -DnewVersion=${version} -DgenerateBackupPoms=false
 cd ../paperboy-cli
 cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperboy\" = \"$version\"" >package.json.new
 mv package.json.new package.json
-yarn
+npm i
 
 sed -i.bak "s/version('[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+')/version('$version')/g" paperboy-cli.js
 rm -rf paperboy-cli.js.bak
@@ -54,8 +53,8 @@ npm publish
 cd ../paperboy-push-service
 cat package.json | jq ".version = \"$version\"" >package.json.new
 mv package.json.new package.json
-yarn
-yarn build
+npm i
+npm run build
 npm publish
 docker build -t neoskop/paperboy-push-service:$version .
 docker build -t neoskop/paperboy-push-service:latest .

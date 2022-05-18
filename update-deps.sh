@@ -56,12 +56,12 @@ get_node_lts_tags() {
   done
 }
 
-check_commands yarn-check yarn jq yq
+check_commands npm jq yq
 
 for dir in cli core project-generator push-service; do
   cd paperboy-$dir/
-  yarn
-  yarn-check -u
+  npm i
+  npm update
   cd - &>/dev/null
 done
 

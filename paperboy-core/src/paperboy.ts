@@ -13,16 +13,16 @@ export class Paperboy {
     const operation = retry.operation({
       forever: true,
       minTimeout: 1000,
-      maxTimeout: 60 * 1000
+      maxTimeout: 60 * 1000,
     });
-    await new Promise(done => {
+    await new Promise<void>((done) => {
       operation.attempt(async () => {
         try {
-          await new Promise((resolve, reject) => {
+          await new Promise<void>((resolve, reject) => {
             const buildProcess = shelljs.exec(
               buildCommand || this.options.command,
               {
-                async: true
+                async: true,
               }
             );
             buildProcess.on('exit', (code: number) => {

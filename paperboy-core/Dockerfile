@@ -1,7 +1,7 @@
-FROM node:14.6.0-buster-slim
+FROM node:16.15.0-buster-slim
 USER node
 WORKDIR /home/node/
-COPY yarn.lock package.json .snyk ./
-RUN yarn
+COPY --chown=node package*.json .snyk ./
+RUN npm i
 COPY . ./
-CMD ["yarn", "start"]
+CMD ["npm", "start"]

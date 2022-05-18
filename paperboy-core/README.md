@@ -14,7 +14,7 @@ $ npm add @neoskop/paperboy
 import { Paperboy } from '@neoskop/paperboy';
 
 new Paperboy({
-  command: 'yarn build'
+  command: 'npm run build',
 });
 ```
 

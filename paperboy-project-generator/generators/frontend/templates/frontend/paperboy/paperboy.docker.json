@@ -4,5 +4,5 @@
     "uri": "nats://queue:4222",
     "topic": "paperboy_preview"
   },
-  "command": "yarn create-pages-json"
+  "command": "npm run create-pages-json"
 }

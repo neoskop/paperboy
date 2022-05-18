@@ -12,7 +12,7 @@ program
     "Continuously watches a queue and rebuilds the frontend when a message is received"
   )
   .option("-c --config [config]", "Path to config file")
-  .action(program => {
+  .action((program) => {
     const paperboy = setupPaperboy(program);
     paperboy.start();
   });
@@ -34,11 +34,10 @@ function setupPaperboy(program, configModifier) {
     configModifier(config);
   }
 
-  const paperboy = new Paperboy({
+  return new Paperboy({
     readinessHook: config.readinessHook,
     initialCommand: config.initialCommand,
     command: config.command,
-    queue: config.queue
+    queue: config.queue,
   });
-  return paperboy;
 }

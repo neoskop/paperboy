@@ -7,7 +7,7 @@ export abstract class QueueHealthIndicator extends HealthIndicator {
     super();
   }
 
-  abstract async isHealthy(
+  abstract isHealthy(
     key: string,
     queueUri: string,
   ): Promise<HealthIndicatorResult>;
