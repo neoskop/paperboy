@@ -29,7 +29,7 @@
     "@nestjs/passport": "8.2.1",
     "@nestjs/platform-express": "8.4.5",
     "@nestjs/terminus": "8.0.6",
-    "amqplib": "0.9.0",
+    "amqplib": "0.9.1",
     "dotenv": "16.0.1",
     "passport": "0.5.3",
     "passport-http-bearer": "1.0.1",
