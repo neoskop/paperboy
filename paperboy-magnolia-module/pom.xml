@@ -23,7 +23,7 @@
     <magnolia-module-observation.version>2.2</magnolia-module-observation.version>
     <magnolia-module-mail.version>5.5.8</magnolia-module-mail.version>
     <magnolia-module-password-manager.version>1.2.5</magnolia-module-password-manager.version>
-    <okhttp.version>4.2.2</okhttp.version>
+    <okhttp.version>4.9.3</okhttp.version>
   </properties>
 
   <scm>
