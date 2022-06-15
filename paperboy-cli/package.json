@@ -20,7 +20,7 @@
     "chalk": "4.1.2",
     "commander": "9.3.0",
     "inquirer": "8.2.4",
-    "snyk": "1.945.0",
+    "snyk": "1.950.0",
     "ts-nats": "1.2.15"
   },
   "engines": {
