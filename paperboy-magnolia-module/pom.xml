@@ -72,7 +72,7 @@
     <dependency>
       <groupId>info.magnolia.pages</groupId>
       <artifactId>magnolia-pages-app-compatibility</artifactId>
-      <version>6.2.18</version>
+      <version>6.2.19</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
