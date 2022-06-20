@@ -19,7 +19,7 @@
     "@neoskop/paperboy": "2.6.5",
     "chalk": "4.1.2",
     "commander": "9.3.0",
-    "inquirer": "8.2.4",
+    "inquirer": "9.0.0",
     "snyk": "1.951.0",
     "ts-nats": "1.2.15"
   },
