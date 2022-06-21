@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   queue:
-    image: nats:2.1.7-scratch
+    image: nats:2.8.4-scratch
     hostname: paperboy_queue
   frontend:
     build: paperboy-core
