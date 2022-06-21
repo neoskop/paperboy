@@ -31,7 +31,7 @@
     "@nestjs/terminus": "8.0.8",
     "amqplib": "0.10.0",
     "dotenv": "16.0.1",
-    "passport": "0.5.3",
+    "passport": "0.6.0",
     "passport-http-bearer": "1.0.1",
     "reflect-metadata": "0.1.13",
     "retry": "0.13.1",
