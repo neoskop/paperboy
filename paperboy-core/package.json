@@ -64,7 +64,7 @@
     "retry": "0.13.1",
     "shelljs": "0.8.5",
     "ts-nats": "1.2.15",
-    "winston": "3.7.2"
+    "winston": "3.8.0"
   },
   "snyk": true
 }
