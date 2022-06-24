@@ -37,7 +37,7 @@
     "retry": "0.13.1",
     "rimraf": "3.0.2",
     "rxjs": "7.5.5",
-    "snyk": "1.954.0",
+    "snyk": "1.958.0",
     "ts-nats": "1.2.15"
   },
   "devDependencies": {
