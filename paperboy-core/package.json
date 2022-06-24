@@ -1,6 +1,6 @@
 {
   "name": "@neoskop/paperboy",
-  "version": "2.6.5",
+  "version": "2.7.0",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.js",
