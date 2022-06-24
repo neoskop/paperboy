@@ -46,7 +46,7 @@
     "concurrently": "7.2.2",
     "mocha": "10.0.0",
     "mocha-mongoose": "1.2.0",
-    "nodemon": "2.0.17",
+    "nodemon": "2.0.18",
     "nyc": "15.1.0",
     "rimraf": "3.0.2",
     "snyk": "1.958.0",
