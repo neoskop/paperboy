@@ -49,7 +49,7 @@
     "nodemon": "2.0.16",
     "nyc": "15.1.0",
     "rimraf": "3.0.2",
-    "snyk": "1.954.0",
+    "snyk": "1.958.0",
     "source-map-support": "0.5.21",
     "ts-nats": "1.2.15",
     "ts-node": "10.8.1",
