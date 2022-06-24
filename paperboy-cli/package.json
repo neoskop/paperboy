@@ -6,25 +6,20 @@
   "homepage": "https://neolabs.io",
   "license": "Apache-2.0",
   "preferGlobal": true,
+  "type": "module",
   "bin": {
     "paperboy": "./paperboy-cli.js",
     "paperboy.sh": "./paperboy-cli.js"
   },
-  "scripts": {
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
-  },
   "author": "Neoskop GmbH",
   "dependencies": {
     "@neoskop/paperboy": "2.6.5",
-    "chalk": "4.1.2",
+    "chalk": "5.0.1",
     "commander": "9.3.0",
     "inquirer": "9.0.0",
-    "snyk": "1.958.0",
     "ts-nats": "1.2.15"
   },
   "engines": {
     "node": ">=12.7.0"
-  },
-  "snyk": true
+  }
 }

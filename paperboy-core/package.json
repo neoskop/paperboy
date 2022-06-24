@@ -16,9 +16,7 @@
     "build": "rimraf dist && tsc -p tsconfig.json",
     "lint": "tslint -p tslint.json",
     "start": "npm run build && node dist/test",
-    "test": "nyc mocha --require ts-node/register --require source-map-support/register --recursive src/**/*.spec.ts",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "test": "nyc mocha --require ts-node/register --require source-map-support/register --recursive src/**/*.spec.ts"
   },
   "nyc": {
     "extension": [
@@ -37,7 +35,7 @@
     "@types/chai-as-promised": "7.1.5",
     "@types/express": "4.17.13",
     "@types/mocha": "9.1.1",
-    "@types/node": "17.0.34",
+    "@types/node": "18.0.0",
     "@types/retry": "0.12.2",
     "@types/shelljs": "0.8.11",
     "@types/winston": "2.4.4",
@@ -49,7 +47,6 @@
     "nodemon": "2.0.18",
     "nyc": "15.1.0",
     "rimraf": "3.0.2",
-    "snyk": "1.958.0",
     "source-map-support": "0.5.21",
     "ts-nats": "1.2.15",
     "ts-node": "10.8.1",
@@ -65,6 +62,5 @@
     "shelljs": "0.8.5",
     "ts-nats": "1.2.15",
     "winston": "3.8.0"
-  },
-  "snyk": true
+  }
 }

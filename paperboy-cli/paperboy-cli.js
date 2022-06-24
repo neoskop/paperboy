@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const chalk = require("chalk");
-const fs = require("fs");
-const Paperboy = require("@neoskop/paperboy").Paperboy;
-const program = require("commander");
+import chalk from "chalk";
+import { readFileSync } from "fs";
+import { Paperboy } from "@neoskop/paperboy";
+import { program } from "commander";
 
 program.version("2.6.5").description("Paperboy CLI");
 
@@ -24,7 +24,7 @@ function setupPaperboy(program, configModifier) {
   let configPath = program.config || "paperboy.config.json";
   console.log(chalk.bold.cyan("[Paperboy] Starting …"));
   try {
-    config = JSON.parse(fs.readFileSync(configPath));
+    config = JSON.parse(readFileSync(configPath));
   } catch (e) {
     console.error(`Config file ${configPath} not found!`);
     process.exit(1);
