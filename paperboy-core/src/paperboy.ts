@@ -4,7 +4,6 @@ import { PaperboyOptions } from './interfaces/paperboy-options.interface';
 import { logger } from './logger';
 import { NatsService } from './service/nats.service';
 import { QueueService } from './service/queue.service';
-import { RabbitMQService } from './service/rabbitmq.service';
 
 export class Paperboy {
   constructor(private readonly options: PaperboyOptions) {}
@@ -69,8 +68,6 @@ export class Paperboy {
 
     if (this.options.queue.uri.startsWith('nats')) {
       queueService = new NatsService(this.options, this.build.bind(this));
-    } else if (this.options.queue.uri.startsWith('amqp')) {
-      queueService = new RabbitMQService(this.options, this.build.bind(this));
     } else {
       throw new Error(
         `Unknown protocol in queue URI ${this.options.queue.uri}`

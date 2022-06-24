@@ -12,7 +12,7 @@ To leverage the flexibility of a content management system while having the perf
 
 1. This setup works by add a Magnolia module to both
    instances, which listens for content changes and publishes
-   details of those changes to a Webhook which publishes a message to a RabbitMQ or NATS server
+   details of those changes to a Webhook which publishes a message to a NATS server
 2. A client-side library then subscribes to this queue
 3. Finally it will execute an arbitrary command to trigger
    the actual rebuild of the frontend
@@ -109,10 +109,8 @@ Build the WAR and deploy it in a servlet container.
 In case of a custom deliver layer, start the push service and a NATS server by running the following command in the root folder of this repository:
 
 ```bash
-$ docker-compose -f docker-compose.nats.yml up
+$ docker-compose up
 ```
-
-(Substitute `docker-compose.nats.yml` with `docker-compose.rabbitmq.yml` to use an RabbitMQ server)
 
 When the containers are up and running, import the following config into Magnolia's configuration under `/modules/paperboy/config`:
 
