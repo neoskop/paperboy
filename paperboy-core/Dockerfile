@@ -1,4 +1,4 @@
-FROM node:16.15.1-buster-slim
+FROM node:18.4.0-buster-slim
 USER node
 WORKDIR /home/node/
 COPY --chown=node package*.json ./
