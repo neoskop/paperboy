@@ -16,7 +16,7 @@
     "@neoskop/paperboy": "2.7.0",
     "chalk": "5.0.1",
     "commander": "9.3.0",
-    "inquirer": "9.0.0",
+    "inquirer": "9.0.1",
     "ts-nats": "1.2.15"
   },
   "engines": {
