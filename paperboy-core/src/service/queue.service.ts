@@ -1,36 +1,33 @@
-import AsyncLock = require('async-lock');
 import { PaperboyOptions } from '../interfaces/paperboy-options.interface';
 import { logger } from '../logger';
 
 export abstract class QueueService {
-  private readonly generationLock: AsyncLock = new AsyncLock({ maxPending: 1 });
+  private buildRunning = false;
+  private followingBuild = false;
 
   constructor(
     protected readonly options: PaperboyOptions,
-    private readonly buildFunction: () => void
+    private readonly buildFunction: () => Promise<void>
   ) {}
 
   public abstract listen(): Promise<void>;
 
-  protected processMessage(content: { source: string }) {
+  public async processMessage(content: { source: string }) {
     logger.info(`Received message from ${content.source}`);
 
-    this.generationLock.acquire(
-      'generationLock',
-      async (done) => {
-        try {
-          this.buildFunction();
-        } catch (err) {
-          logger.error('Generation failed.', err);
-        }
+    if (this.buildRunning) {
+      this.followingBuild = true;
+      logger.info(
+        'Queued following build since a build is already in progress'
+      );
+    } else {
+      this.buildRunning = true;
+      do {
+        this.followingBuild = false;
+        await this.buildFunction();
+      } while (this.followingBuild);
 
-        done();
-      },
-      (err) => {
-        if (err) {
-          logger.info('Already another pending message. Message discarded!');
-        }
-      }
-    );
+      this.buildRunning = false;
+    }
   }
 }
