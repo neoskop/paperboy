@@ -10,7 +10,7 @@ export class NatsService extends QueueService {
       url: this.options.queue.uri,
       maxReconnectAttempts: -1,
       waitOnFirstConnect: true,
-      reconnect: true
+      reconnect: true,
     });
 
     this.client.subscribe(
@@ -23,8 +23,14 @@ export class NatsService extends QueueService {
     if (err) {
       logger.error(`Receiving of a message failed: ${err.message}`);
     } else {
-      const content = JSON.parse(message.data.toString());
-      super.processMessage(content);
+      const data = message.data.toString();
+      try {
+        const content = JSON.parse(data);
+        super.processMessage(content);
+      } catch (_err) {
+        logger.error(`JSON.parsing failed for message data ${data}`);
+        super.processMessage({ source: 'unknown' });
+      }
     }
   }
 }

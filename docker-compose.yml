@@ -1,14 +1,14 @@
 version: "3.4"
 services:
   queue:
-    image: nats:2.8.4-scratch
+    image: nats:2.9.3
     hostname: paperboy_queue
+    ports:
+      - "4222:4222"
   frontend:
     build: paperboy-core
     environment:
       QUEUE_URI: nats://queue:4222
-    ports:
-      - "4222:4222"
   push-service:
     build:
       context: paperboy-push-service
