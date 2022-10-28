@@ -46,7 +46,7 @@ cat package.json | jq ".version = \"$version\" | .dependencies.\"@neoskop/paperb
 mv package.json.new package.json
 npm i
 
-sed -i.bak "s/version('[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+')/version('$version')/g" paperboy-cli.js
+sed -i.bak "s/version([\"'][[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+[\"'])/version(\"$version\")/g" paperboy-cli.js
 rm -rf paperboy-cli.js.bak
 npm publish
 
