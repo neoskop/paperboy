@@ -1,6 +1,6 @@
 FROM node:18.6.0-buster-slim
 
-ENV PAPERBOY_VERSION=2.8.0
+ENV PAPERBOY_VERSION=2.8.1
 
 RUN apt-get update -qq && \
     apt-get install -y -qq nginx supervisor && \

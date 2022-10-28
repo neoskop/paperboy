@@ -5,7 +5,7 @@ import { readFileSync } from "fs";
 import { Paperboy } from "@neoskop/paperboy";
 import { program } from "commander";
 
-program.version("2.6.5").description("Paperboy CLI");
+program.version("2.8.1").description("Paperboy CLI");
 
 program
   .description(
