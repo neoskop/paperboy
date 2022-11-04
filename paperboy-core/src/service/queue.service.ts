@@ -16,10 +16,12 @@ export abstract class QueueService {
     logger.info(`Received message from ${content.source}`);
 
     if (this.buildRunning) {
-      this.followingBuild = true;
-      logger.info(
-        'Queued following build since a build is already in progress'
-      );
+      if (!this.followingBuild) {
+        this.followingBuild = true;
+        logger.info(
+          'Queued following build since a build is already in progress'
+        );
+      }
     } else {
       this.buildRunning = true;
       do {

@@ -26,6 +26,7 @@ test('only one build at a time', async () => {
   );
   promises.push(sut.processMessage({ source: 'jest' }));
   promises.push(sut.processMessage({ source: 'jest' }));
+  await new Promise((c) => setTimeout(c, 250));
   expect(mockBuild.mock.calls.length).toBe(1);
   await Promise.all(promises);
 });
