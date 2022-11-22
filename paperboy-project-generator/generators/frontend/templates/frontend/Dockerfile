@@ -1,9 +1,9 @@
-FROM node:18.6.0-alpine AS dependencies
+FROM node:18.12.1-alpine AS dependencies
 WORKDIR /home/node/app
 COPY package*.json ./
 RUN npm i
 
-FROM node:18.6.0-alpine AS base
+FROM node:18.12.1-alpine AS base
 RUN apk add --no-cache py-pip supervisor bash sed
 RUN mkdir -p /var/log/supervisor
 USER node
