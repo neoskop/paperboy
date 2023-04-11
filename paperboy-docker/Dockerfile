@@ -1,4 +1,4 @@
-FROM node:18.12.1-buster-slim
+FROM node:19.9.0-buster-slim
 
 ENV PAPERBOY_VERSION=2.8.1
 

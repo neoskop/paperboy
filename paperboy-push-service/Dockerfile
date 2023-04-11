@@ -1,4 +1,4 @@
-FROM node:18.12.1-buster AS build
+FROM node:19.9.0-buster AS build
 RUN apt-get update && \
     apt-get install -y build-essential
 WORKDIR /home/node/app
@@ -6,13 +6,13 @@ COPY package*.json ./
 RUN npm i
 COPY --chown=node . ./
 
-FROM node:18.12.1-buster as development
+FROM node:19.9.0-buster as development
 USER node
 WORKDIR /home/node/app
 COPY --from=build --chown=node /home/node/app ./
 CMD npm run start:dev
 
-FROM node:18.12.1-buster as production
+FROM node:19.9.0-buster as production
 USER node
 RUN mkdir -p /home/node/app
 WORKDIR /home/node/app
