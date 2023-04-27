@@ -11,7 +11,7 @@
   "author": "Arne Diekmann <diekmann@neoskop.de>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@magnolia/cli": "4.0.0",
+    "@magnolia/cli": "4.0.4",
     "chalk": "5.1.2",
     "voca": "1.4.0",
     "yeoman-generator": "5.7.0"
