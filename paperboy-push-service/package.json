@@ -22,11 +22,11 @@
   "dependencies": {
     "@godaddy/terminus": "4.11.2",
     "@hapi/joi": "17.1.1",
-    "@nestjs/common": "9.2.1",
-    "@nestjs/core": "9.2.1",
-    "@nestjs/passport": "9.0.0",
-    "@nestjs/platform-express": "9.2.1",
-    "@nestjs/terminus": "9.1.4",
+    "@nestjs/common": "9.4.3",
+    "@nestjs/core": "9.4.3",
+    "@nestjs/passport": "9.0.3",
+    "@nestjs/platform-express": "9.4.3",
+    "@nestjs/terminus": "9.2.2",
     "amqplib": "0.10.3",
     "dotenv": "16.0.1",
     "passport": "0.6.0",
@@ -38,7 +38,7 @@
     "ts-nats": "1.2.15"
   },
   "devDependencies": {
-    "@nestjs/testing": "9.2.1",
+    "@nestjs/testing": "9.4.3",
     "@types/amqplib": "0.10.0",
     "@types/async-lock": "1.1.5",
     "@types/dotenv": "8.2.0",
