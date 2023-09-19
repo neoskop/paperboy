@@ -1,6 +1,0 @@
-.dockerignore
-Dockerfile
-node_modules/
-dist/
-public/assets/cms
-public/cms-assets

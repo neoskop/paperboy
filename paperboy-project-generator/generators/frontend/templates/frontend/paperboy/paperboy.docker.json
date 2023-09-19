@@ -1,8 +1,0 @@
-{
-  "readinessHook": "touch /home/node/ready",
-  "queue": {
-    "uri": "nats://queue:4222",
-    "topic": "paperboy_preview"
-  },
-  "command": "npm run create-pages-json"
-}

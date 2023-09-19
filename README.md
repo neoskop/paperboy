@@ -38,10 +38,10 @@ The subscriber part of this system is currently comprised of three submodules in
 Run the following command to start a queue, push service and a simple 'frontend':
 
 ```bash
-$ docker-compose -f docker-compose.nats.yml up
+$ docker-compose up
 ```
 
-When all three services are up an running execute the follow command to send a message via the push service:
+When all services are up an running execute the follow command to send a message via the push service:
 
 ```bash
 $ curl -X POST \
@@ -51,21 +51,7 @@ $ curl -X POST \
   -d 'payload=%7B%22foo%22%3A%22bar%22%7D&source=foo'
 ```
 
-## Quickstart
-
-Install [Yeoman](https://yeoman.io/) and our generator:
-
-```
-$ npm install -g yo generator-paperboy
-```
-
-Afterwards just start a wizard via:
-
-```
-$ yo paperboy
-```
-
-## Manual installation
+## Installation
 
 To get started with your project, execute the stepts in [Frontend Set-Up](#frontend-set-up) and [Magnolia Set-Up](#magnolia-set-up). Afterwards either execute the steps from [Custom delivery layer](#custom-delivery-layer) or [Netlify](#netlify) depending on your setup.
 
