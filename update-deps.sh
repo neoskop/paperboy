@@ -73,5 +73,6 @@ NATS_LATEST_TAG=$(get_tags library/nats | grep '^[0-9]*\.[0-9]*\.[0-9]*-scratch$
 NATS_LATEST_VERSION=$(get_tags library/nats | grep '^[0-9]*\.[0-9]*\.[0-9]*$' | sort -V | tail -n 1)
 echo "  - NATS: $(bold $NATS_LATEST_TAG)"
 sed -i "1 s/^.*$/FROM node:$NODE_LATEST_TAG/" paperboy-core/Dockerfile
+sed -E -i "s/^FROM node:(.+)\s+AS\s+(.+)/FROM node:$NODE_LATEST_TAG AS \2/g" paperboy-push-service/Dockerfile
 yq eval -i ".services.queue.image=\"nats:$NATS_LATEST_TAG\"" docker-compose.yml
 yq eval -i ".nats.version=\"$NATS_LATEST_VERSION\"" paperboy-helm/values.yaml
