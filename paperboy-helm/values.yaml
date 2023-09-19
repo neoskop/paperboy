@@ -11,9 +11,19 @@ resources:
 replicaCount: 2
 pushService:
   token: ""
+  ingress:
+    enabled: false
+    annotations: {}
+    labels: {}
+    hosts: []
 previewPushService:
   enabled: true
   token: ""
+  ingress:
+    enabled: false
+    annotations: {}
+    labels: {}
+    hosts: []
 nats:
   createCluster: true
   url: null

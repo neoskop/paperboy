@@ -1,0 +1,36 @@
+{{- if and .Values.previewPushService.enabled .Values.previewPushService.ingress.enabled }}
+{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ include "paperboy.previewPushService.name" . }}
+  labels:
+{{ include "paperboy.labels" . | indent 4 }}
+{{ .Values.previewPushService.ingress.labels | toYaml | indent 4 }}
+  annotations:
+{{ .Values.previewPushService.ingress.annotations | toYaml | indent 4 }}
+spec:
+  tls:
+    - hosts:
+    {{- range .Values.previewPushService.ingress.hosts }}
+      - {{ . }}
+    {{- end }}
+      secretName: {{ include "paperboy.previewPushService.name" . }}-tls
+  rules:
+    {{- $root := . -}}
+    {{- range $root.Values.previewPushService.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: /(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ include "paperboy.previewPushService.name" $root }}
+                port:
+                  number: 8080
+    {{- end }}
+{{- end }}

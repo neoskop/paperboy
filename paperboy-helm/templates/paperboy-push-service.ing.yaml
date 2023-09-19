@@ -1,0 +1,36 @@
+{{- if .Values.pushService.ingress.enabled }}
+{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ include "paperboy.pushService.name" . }}
+  labels:
+{{ include "paperboy.labels" . | indent 4 }}
+{{ .Values.pushService.ingress.labels | toYaml | indent 4 }}
+  annotations:
+{{ .Values.pushService.ingress.annotations | toYaml | indent 4 }}
+spec:
+  tls:
+    - hosts:
+    {{- range .Values.pushService.ingress.hosts }}
+      - {{ . }}
+    {{- end }}
+      secretName: {{ include "paperboy.pushService.name" . }}-tls
+  rules:
+    {{- $root := . -}}
+    {{- range $root.Values.pushService.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: /(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ include "paperboy.pushService.name" $root }}
+                port:
+                  number: 8080
+    {{- end }}
+{{- end }}
