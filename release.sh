@@ -76,7 +76,7 @@ git push
 git checkout master
 rm -rf .deploy/
 
-HELM_CHARTS_DIR=../neoskop-helm-charts
+HELM_CHARTS_DIR=../helm-charts
 [ -d $HELM_CHARTS_DIR ] || git clone git@github.com:neoskop/helm-charts.git $HELM_CHARTS_DIR
 cd $HELM_CHARTS_DIR
 ./update-index.sh
