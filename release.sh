@@ -26,7 +26,7 @@ fi
 
 git pull --rebase
 
-cd ../paperboy-core
+cd paperboy-core
 npm i
 npm run build
 npm version $1
