@@ -21,7 +21,7 @@
     <servlet-api.version>2.5</servlet-api.version>
     <gson.version>2.10.1</gson.version>
     <magnolia-module-observation.version>2.2</magnolia-module-observation.version>
-    <magnolia-module-mail.version>5.5.15</magnolia-module-mail.version>
+    <magnolia-module-mail.version>5.6.1</magnolia-module-mail.version>
     <magnolia-module-password-manager.version>1.2.5</magnolia-module-password-manager.version>
     <okhttp.version>4.10.0</okhttp.version>
   </properties>
