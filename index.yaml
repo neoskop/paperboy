@@ -2,6 +2,24 @@ apiVersion: v1
 entries:
   paperboy:
   - apiVersion: v2
+    appVersion: 2.9.0
+    created: "2023-09-19T15:57:07.814566876+02:00"
+    description: A Helm chart to deploy the paperboy push service and optionally a queue
+    digest: 208bdfccc59607a9adf0cd1bb742184c7de723eee5af29d676beda9e23b499ba
+    home: http://paperboy.sh
+    maintainers:
+    - email: diekmann@neoskop.de
+      name: Arne Diekmann
+      url: https://www.neoskop.de
+    name: paperboy
+    sources:
+    - https://github.com/neoskop/paperboy
+    - https://github.com/neoskop/paperboy/tree/master/paperboy-helm
+    type: application
+    urls:
+    - https://github.com/neoskop/paperboy/releases/download/paperboy-2.9.0/paperboy-2.9.0.tgz
+    version: 2.9.0
+  - apiVersion: v2
     appVersion: 2.8.1
     created: "2022-10-28T09:04:58.12326551+02:00"
     description: A Helm chart to deploy the paperboy push service and optionally a queue
