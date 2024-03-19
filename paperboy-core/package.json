@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@types/jest": "29.5.5",
-    "@types/node": "20.6.2",
+    "@types/node": "20.11.30",
     "@types/retry": "0.12.2",
     "@types/shelljs": "0.8.12",
     "@types/winston": "2.4.4",
