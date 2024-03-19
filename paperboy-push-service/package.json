@@ -44,7 +44,7 @@
     "@types/dotenv": "8.2.0",
     "@types/express": "4.17.17",
     "@types/jest": "29.5.5",
-    "@types/node": "20.6.2",
+    "@types/node": "20.11.30",
     "@types/retry": "0.12.2",
     "@types/supertest": "2.0.12",
     "jest": "29.7.0",
