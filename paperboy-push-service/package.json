@@ -33,7 +33,7 @@
     "passport-http-bearer": "1.0.1",
     "reflect-metadata": "0.1.13",
     "retry": "0.13.1",
-    "rimraf": "5.0.1",
+    "rimraf": "5.0.7",
     "rxjs": "7.8.1",
     "ts-nats": "1.2.15"
   },
