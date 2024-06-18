@@ -2,6 +2,7 @@ import * as Joi from 'joi';
 import { Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
+import { ConnectionOptions } from 'nats';
 
 export interface EnvConfig {
   [key: string]: string;
@@ -47,6 +48,13 @@ export class ConfigService {
 
   get queueUri(): string {
     return this.envConfig.QUEUE_URI;
+  }
+
+  get queueConnectionsOpts(): ConnectionOptions {
+    const url = new URL(this.envConfig.QUEUE_URI);
+    return {
+      servers: [`${url.hostname}:${url.port}`],
+    };
   }
 
   get queueExchange(): string {

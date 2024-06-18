@@ -1,23 +1,22 @@
 import { HealthCheckError } from '@godaddy/terminus';
 import { Injectable } from '@nestjs/common';
-import { HealthIndicatorResult } from '@nestjs/terminus';
-import { connect } from 'ts-nats';
-import { QueueHealthIndicator } from './queue.health';
+import { HealthIndicator, HealthIndicatorResult } from '@nestjs/terminus';
+import { ConnectionOptions, connect } from 'nats';
 
 @Injectable()
-export class NatsHealthIndicator extends QueueHealthIndicator {
+export class NatsHealthIndicator extends HealthIndicator {
   constructor() {
     super();
   }
 
   async isHealthy(
     key: string,
-    queueUri: string,
+    queueConnectionsOpts: ConnectionOptions,
   ): Promise<HealthIndicatorResult> {
     let isHealthy: boolean = false;
 
     try {
-      const client = await connect(queueUri);
+      const client = await connect(queueConnectionsOpts);
 
       if (client !== null) {
         isHealthy = true;

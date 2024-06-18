@@ -1,9 +1,9 @@
-import { Client, connect } from 'ts-nats';
+import { NatsConnection, connect } from 'nats';
 import { ConfigService } from '../../config/config.service';
 import { QueueService } from '../queue.service';
 
 export class NatsService extends QueueService {
-  private client: Client;
+  private connection: NatsConnection;
   constructor(configService: ConfigService) {
     super(configService);
   }
@@ -13,21 +13,22 @@ export class NatsService extends QueueService {
       const exchanges = this.configService.queueExchange.split(',');
 
       for (const exchange of exchanges) {
-        this.client.publish(exchange, message);
+        this.connection.publish(exchange, message);
       }
 
-      return this.client.flush();
+      return this.connection.flush();
     } catch (err) {
       return Promise.reject(err);
     }
   }
 
   protected async connectToQueue() {
-    this.client = await connect({
-      url: this.configService.queueUri,
-      maxReconnectAttempts: -1,
-      waitOnFirstConnect: true,
-      reconnect: true,
-    });
+    this.connection = await connect(
+      Object.assign({}, this.configService.queueConnectionsOpts, {
+        maxReconnectAttempts: -1,
+        waitOnFirstConnect: true,
+        reconnect: true,
+      }),
+    );
   }
 }

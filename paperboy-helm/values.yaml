@@ -28,7 +28,7 @@ nats:
   createCluster: true
   url: null
   size: 3
-  version: 2.9.22
+  version: 2.10.16
 nameOverride: ""
 fullnameOverride: ""
 imagePullSecret: {}
