@@ -1,8 +1,0 @@
-.idea
-target
-*.iml
-rebel.xml
-.classpath
-.project
-.factorypath
-org.eclipse.*

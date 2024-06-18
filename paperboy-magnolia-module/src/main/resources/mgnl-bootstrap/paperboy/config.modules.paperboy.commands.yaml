@@ -1,9 +1,0 @@
-'commands': 
-  jcr:primaryType: 'mgnl:content'
-  'paperboy': 
-    jcr:primaryType: 'mgnl:content'
-    'sendChange': 
-      'class': 'de.neoskop.magnolia.command.SendChangeCommand'
-      'commandName': 'sendChange'
-
-
