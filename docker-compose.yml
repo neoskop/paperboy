@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   queue:
-    image: nats:2.10.16-scratch
+    image: nats:2.10.22-scratch
     hostname: paperboy_queue
     ports:
       - "4222:4222"
