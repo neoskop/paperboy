@@ -27,7 +27,7 @@
     "@nestjs/platform-express": "10.3.9",
     "@nestjs/terminus": "10.2.3",
     "dotenv": "16.4.5",
-    "joi": "17.13.1",
+    "joi": "17.13.3",
     "nats": "2.26.0",
     "passport": "0.7.0",
     "passport-http-bearer": "1.0.1",
