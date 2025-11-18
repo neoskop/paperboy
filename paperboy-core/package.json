@@ -31,7 +31,7 @@
     "all": true
   },
   "devDependencies": {
-    "@types/jest": "29.5.12",
+    "@types/jest": "29.5.14",
     "@types/node": "20.14.5",
     "@types/retry": "0.12.5",
     "@types/shelljs": "0.8.15",
